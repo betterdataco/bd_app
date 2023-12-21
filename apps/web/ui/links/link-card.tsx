@@ -44,6 +44,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import Linkify from "linkify-react";
 import punycode from "punycode/";
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import useSWR from "swr";
@@ -234,7 +235,7 @@ export default function LinkCard({
               content={
                 archived
                   ? "This link is archived. It will still work, but won't be shown in your dashboard."
-                  : "This link has expired. It will still show up in your dashboard, but users will get an 'Expired' page when they click on it."
+                  : "This link has expired. It will still show up in your dashboard, but users will get an 'Expired Link' page when they click on it."
               }
             >
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-300 px-0 sm:h-10 sm:w-10">
@@ -302,7 +303,16 @@ export default function LinkCard({
                 <Tooltip
                   content={
                     <div className="block max-w-sm px-4 py-2 text-center text-sm text-gray-700">
-                      {comments}
+                      <Linkify
+                        as="p"
+                        options={{
+                          rel: "noopener noreferrer nofollow",
+                          className:
+                            "underline underline-offset-4 text-gray-400 hover:text-gray-700",
+                        }}
+                      >
+                        {comments}
+                      </Linkify>
                     </div>
                   }
                 >
