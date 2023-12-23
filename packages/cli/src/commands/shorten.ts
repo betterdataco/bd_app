@@ -11,7 +11,7 @@ import { z } from "zod";
 
 const addOptionsSchema = z.object({
   url: z.string().optional(),
-  key: z.string().optional()
+  key: z.string().optional(),
 });
 
 export const shorten = new Command()
@@ -28,19 +28,29 @@ export const shorten = new Command()
       let givenDetails = options;
 
       if (!options.url) {
-        const promptsOptions = await prompts([
+        const promptsOptions = await prompts(
+          [
+            {
+              type: "text",
+              name: "url",
+              message: "Enter your Destination URL:",
+            },
+            {
+              type: "text",
+              name: "key",
+              message: "Enter your Short link:",
+              initial: getNanoid(),
+            },
+          ],
           {
-            type: "text",
-            name: "url",
-            message: "Enter your Destination URL:"
+            onCancel: () => {
+              logger.info("");
+              logger.warn("You cancelled the prompt.");
+              logger.info("");
+              process.exit(0);
+            },
           },
-          {
-            type: "text",
-            name: "key",
-            message: "Enter your Short link:",
-            initial: getNanoid()
-          }
-        ]);
+        );
 
         givenDetails = promptsOptions;
       }
@@ -53,7 +63,7 @@ export const shorten = new Command()
 
       const generatedShortLink = await getShortLink({
         url: givenDetails.url,
-        shortLink: givenDetails.key
+        shortLink: givenDetails.key,
       });
 
       spinner.succeed("Short link created!");

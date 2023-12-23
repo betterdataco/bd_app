@@ -12,7 +12,6 @@ import prompts from "prompts";
 export const config = new Command()
   .name("config")
   .description("see your configured dub.co credentails")
-  .option("set", "update config file")
   .action(async () => {
     const spinner = ora("Getting config file...").start();
 
@@ -27,9 +26,9 @@ export const config = new Command()
           colors: {
             STRING_KEY: "white",
             STRING_LITERAL: "#65B741",
-            NUMBER_LITERAL: "#7E30E1"
-          }
-        })
+            NUMBER_LITERAL: "#7E30E1",
+          },
+        }),
       );
       logger.info("");
     } catch (error) {
@@ -49,54 +48,65 @@ config
 
       const showProjects = async () => {
         const projects = await getProjectsInfo({
-          token: config.token
+          token: config.token,
         });
 
         spinner.stop();
 
         return projects.map((projects) => ({
           title: `${projects.name} (${projects.slug})`,
-          value: projects.slug
+          value: projects.slug,
         }));
       };
 
       const showDomains = async () => {
         const domains = await getDomainsInfo({
           token: config.token,
-          projectSlug: config.currentProject
+          projectSlug: config.currentProject,
         });
 
         spinner.stop();
 
         return domains.map((domain) => ({
           title: domain.slug,
-          value: domain.slug
+          value: domain.slug,
         }));
       };
 
-      const options = await prompts([
+      const options = await prompts(
+        [
+          {
+            type: "select",
+            name: "category",
+            message: "What would you like to set?",
+            choices: [
+              { title: "Project", value: "project" },
+              { title: "Domain", value: "domain" },
+            ],
+          },
+          {
+            type: (prev: string) => (prev === "project" ? "select" : null),
+            name: "project",
+            message: "Choose a project:",
+            choices: await showProjects(),
+          },
+          {
+            type: (prev: string) => (prev === "domain" ? "select" : null),
+            name: "domain",
+            message: "Select a domain from your chosen project:",
+            choices: await showDomains(),
+          },
+        ],
         {
-          type: "select",
-          name: "category",
-          message: "What would you like to set?",
-          choices: [
-            { title: "Project", value: "project" },
-            { title: "Domain", value: "domain" }
-          ]
+          onCancel: () => {
+            logger.info("");
+            spinner.stop();
+            logger.warn("Configuration update cancelled.");
+            logger.info("");
+            process.exit(0);
+          },
         },
-        {
-          type: (prev: string) => (prev === "project" ? "select" : null),
-          name: "project",
-          message: "Choose a project:",
-          choices: await showProjects()
-        },
-        {
-          type: (prev: string) => (prev === "domain" ? "select" : null),
-          name: "domain",
-          message: "Select a domain from your chosen project:",
-          choices: await showDomains()
-        }
-      ]);
+      );
 
       const getconfig = new Configstore("dubcli");
 
