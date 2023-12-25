@@ -28,14 +28,21 @@ export const shorten = new Command()
 
       const config = await getConfig();
 
+      if (!config.project.slug) {
+        logger.warn(
+          `Please visit ${chalk.green(
+            "https://dub.co"
+          )} to create a new project and try logging in again.`
+        );
+        process.exit(0);
+      }
+
       if (!config.domain.slug) {
-        logger.info("");
         logger.warn(
           `Domain not found. Please create a new project on ${chalk.green(
             "https://dub.co"
           )} and try logging in again.`
         );
-        logger.info("");
         process.exit(0);
       }
 

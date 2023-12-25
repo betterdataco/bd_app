@@ -57,7 +57,7 @@ config
           logger.warn(
             `Please visit ${chalk.green(
               "https://dub.co"
-            )} to create a new project.`
+            )} to create a new project and try logging in again.`
           );
           process.exit(0);
         }
@@ -77,7 +77,7 @@ config
           logger.warn(
             `You can't set a domain. Please visit ${chalk.green(
               "https://dub.co"
-            )} to create a new project.`
+            )} to create a new project and try logging in again.`
           );
           process.exit(0);
         }
