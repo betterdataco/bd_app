@@ -49,14 +49,20 @@ export interface Domain {
 }
 
 export interface DubConfig extends UserInfo {
-  currentProject: Project["slug"];
-  currentDomain: Project["domains"][0]["slug"];
+  project: {
+    slug: Project["slug"] | null;
+  };
+  domain: {
+    slug?: Project["domains"][0]["slug"] | null;
+    verified?: boolean | null;
+  };
   token: string;
 }
 
 export interface LinkOptions {
   url: string;
   shortLink?: string;
+  config: DubConfig;
 }
 
 export interface APIResponse {
@@ -89,4 +95,47 @@ export interface APIResponse {
   lastClicked: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface DomainInfo {
+  slug: string;
+  verified: boolean;
+  primary: boolean;
+  target: null | string;
+  type: string;
+  placeholder: string | null;
+  clicks: number;
+}
+
+export interface CreatedProject {
+  status: string;
+  value: {
+    id: string;
+    name: string;
+    slug: string;
+    logo: null;
+    usage: number;
+    usageLimit: number;
+    plan: string;
+    stripeId: null;
+    billingCycleStart: number;
+    monitoringId: null;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
+
+export interface CreatedDomain {
+  status: string;
+  value: {
+    name: string;
+    apexName: string;
+    projectId: string;
+    redirect: string | null;
+    redirectStatusCode: number | null;
+    gitBranch: string | null;
+    updatedAt: number;
+    createdAt: number;
+    verified: boolean;
+  };
 }

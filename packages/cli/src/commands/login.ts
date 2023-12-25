@@ -1,4 +1,4 @@
-import { DubConfig } from "@/types";
+import type { DubConfig } from "@/types";
 import { getUserInfo } from "@/utils/auth/get-user-info";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
@@ -10,17 +10,17 @@ import ora from "ora";
 import { z } from "zod";
 
 const loginOptionsSchema = z.object({
-  token: z.string()
+  token: z.string().min(8, "Token must be at least 3 characters long")
 });
 
 export const login = new Command()
   .name("login")
-  .description("Configure your dub.co authorization credentials")
-  .argument("<token>", "API token for authentication")
+  .description("configure your dub.co authorization credentials")
+  .argument("<token>", "api token for authentication")
   .action(async (token) => {
     const spinner = ora("Verifying user credentials...").start();
-    const options = loginOptionsSchema.parse({ token });
     try {
+      const options = loginOptionsSchema.parse({ token });
       const userInfo = await getUserInfo({ token: options.token });
 
       if (!userInfo) {
@@ -35,24 +35,40 @@ export const login = new Command()
 
       const projectsInfo = await getProjectsInfo({ token: options.token });
 
+      const defaultProject = projectsInfo ? projectsInfo[0] : null;
+      const defaultDomain = projectsInfo
+        ? projectsInfo[0]?.domains.find((domain) => domain.primary) ||
+          projectsInfo[0]?.domains[0]
+        : null;
+
       const defaultInfo = {
-        currentProject: projectsInfo[0].slug ?? null,
-        currentDomain: projectsInfo[0].domains[0].slug ?? null
+        project: {
+          slug: defaultProject?.slug ?? null
+        },
+        domain: {
+          slug: defaultDomain?.slug ?? null,
+          verified: defaultDomain?.verified ?? null
+        }
       };
 
       const configInfo: DubConfig = {
+        token: options.token,
         ...userInfo,
-        ...defaultInfo,
-        token: options.token
+        ...defaultInfo
       };
 
       const config = new Configstore("dubcli");
-      config.set(configInfo);
 
       if (!config.path) {
         spinner.stop();
         handleError(new Error("Failed to create config file."));
       }
+
+      // 1: clear the config
+      config.clear();
+
+      // 2: set new dub credentials
+      config.set(configInfo);
 
       spinner.succeed("Done");
 

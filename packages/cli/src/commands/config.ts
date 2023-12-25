@@ -1,3 +1,4 @@
+import type { DomainInfo } from "@/types";
 import { getConfig } from "@/utils/get-config";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
@@ -26,9 +27,9 @@ export const config = new Command()
           colors: {
             STRING_KEY: "white",
             STRING_LITERAL: "#65B741",
-            NUMBER_LITERAL: "#7E30E1",
-          },
-        }),
+            NUMBER_LITERAL: "#7E30E1"
+          }
+        })
       );
       logger.info("");
     } catch (error) {
@@ -48,28 +49,49 @@ config
 
       const showProjects = async () => {
         const projects = await getProjectsInfo({
-          token: config.token,
+          token: config.token
         });
+
+        if (!projects) {
+          spinner.stop();
+          logger.warn(
+            `Please visit ${chalk.green(
+              "https://dub.co"
+            )} to create a new project.`
+          );
+          process.exit(0);
+        }
 
         spinner.stop();
 
         return projects.map((projects) => ({
           title: `${projects.name} (${projects.slug})`,
-          value: projects.slug,
+          value: projects.slug
         }));
       };
 
+      let domains: DomainInfo[] = [];
       const showDomains = async () => {
-        const domains = await getDomainsInfo({
+        if (!config.project.slug) {
+          spinner.stop();
+          logger.warn(
+            `You can't set a domain. Please visit ${chalk.green(
+              "https://dub.co"
+            )} to create a new project.`
+          );
+          process.exit(0);
+        }
+
+        domains = await getDomainsInfo({
           token: config.token,
-          projectSlug: config.currentProject,
+          projectSlug: config.project.slug
         });
 
         spinner.stop();
 
         return domains.map((domain) => ({
           title: domain.slug,
-          value: domain.slug,
+          value: domain.slug
         }));
       };
 
@@ -81,21 +103,21 @@ config
             message: "What would you like to set?",
             choices: [
               { title: "Project", value: "project" },
-              { title: "Domain", value: "domain" },
-            ],
+              { title: "Domain", value: "domain" }
+            ]
           },
           {
             type: (prev: string) => (prev === "project" ? "select" : null),
             name: "project",
             message: "Choose a project:",
-            choices: await showProjects(),
+            choices: await showProjects()
           },
           {
             type: (prev: string) => (prev === "domain" ? "select" : null),
             name: "domain",
             message: "Select a domain from your chosen project:",
-            choices: await showDomains(),
-          },
+            choices: await showDomains()
+          }
         ],
         {
           onCancel: () => {
@@ -104,22 +126,38 @@ config
             logger.warn("Configuration update cancelled.");
             logger.info("");
             process.exit(0);
-          },
-        },
+          }
+        }
       );
 
       const getconfig = new Configstore("dubcli");
 
       switch (options.category) {
         case "project":
-          getconfig.set("currentProject", options.project);
+          getconfig.set("project.slug", options.project);
           break;
-        case "domain":
-          getconfig.set("currentDomain", options.domain);
+        case "domain": {
+          const selectedDomain = options.domain;
+          const getDomainInfo = domains.find((d) => d.slug === selectedDomain);
+
+          getconfig.set("domain.slug", options.domain);
+          getconfig.set("domain.verified", getDomainInfo?.verified);
+
+          if (!getDomainInfo?.verified) {
+            logger.warn(
+              `Domain is not verified. Please visit ${chalk.green(
+                "https://dub.co"
+              )} to verify your domain and try logging in again.`
+            );
+            logger.info("");
+          }
+
           break;
+        }
         default:
           process.exit(0);
       }
+
       spinner.succeed("Done");
 
       logger.info("");

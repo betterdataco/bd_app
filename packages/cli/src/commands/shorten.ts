@@ -1,3 +1,4 @@
+import { DubConfig } from "@/types";
 import { getConfig } from "@/utils/get-config";
 import { getNanoid } from "@/utils/get-nanoid";
 import { getShortLink } from "@/utils/get-shorten-link";
@@ -9,38 +10,51 @@ import ora from "ora";
 import prompts from "prompts";
 import { z } from "zod";
 
-const addOptionsSchema = z.object({
-  url: z.string().optional(),
-  key: z.string().optional(),
+const shortenOptionsSchema = z.object({
+  url: z.string().min(3, "URL must be at least 3 characters long"),
+  key: z.string().min(1, "Key must be at least 1 character long")
 });
+
+type optionSchema = z.infer<typeof shortenOptionsSchema>;
 
 export const shorten = new Command()
   .name("shorten")
-  .description("Generate a shortened link")
-  .argument("[url]", "URL to be shortened")
-  .argument("[key]", "Optional key to customize the link", getNanoid())
-  .action(async (url, key, opts) => {
+  .description("generate a shortened link")
+  .argument("[url]", "url to be shortened")
+  .argument("[key]", "short key to customize the link", getNanoid())
+  .action(async (url, key) => {
     try {
-      const options = addOptionsSchema.parse({ url, key, ...opts });
+      const inputs = { url, key };
 
-      await getConfig();
+      const config = await getConfig();
 
-      let givenDetails = options;
+      if (!config.domain.slug) {
+        logger.info("");
+        logger.warn(
+          `Domain not found. Please create a new project on ${chalk.green(
+            "https://dub.co"
+          )} and try logging in again.`
+        );
+        logger.info("");
+        process.exit(0);
+      }
 
-      if (!options.url) {
+      let givenDetails = inputs;
+
+      if (!inputs.url) {
         const promptsOptions = await prompts(
           [
             {
               type: "text",
               name: "url",
-              message: "Enter your Destination URL:",
+              message: "Enter your Destination URL:"
             },
             {
               type: "text",
               name: "key",
               message: "Enter your Short link:",
-              initial: getNanoid(),
-            },
+              initial: getNanoid()
+            }
           ],
           {
             onCancel: () => {
@@ -48,30 +62,46 @@ export const shorten = new Command()
               logger.warn("You cancelled the prompt.");
               logger.info("");
               process.exit(0);
-            },
-          },
+            }
+          }
         );
 
         givenDetails = promptsOptions;
       }
 
-      const spinner = ora("Shortening URL...").start();
+      const options = shortenOptionsSchema.parse(givenDetails);
 
-      if (!givenDetails.key || !givenDetails.url) {
-        throw new Error("URL or key is required");
+      const link = await runInit(options, config);
+
+      logger.info("");
+      logger.info(`${chalk.green(link)}`);
+      logger.info("");
+      if (!config.domain.verified) {
+        logger.warn(
+          `Domain is not verified. Please visit ${chalk.green(
+            "https://dub.co"
+          )} to verify your domain and try logging in again.`
+        );
+        logger.info("");
       }
-
-      const generatedShortLink = await getShortLink({
-        url: givenDetails.url,
-        shortLink: givenDetails.key,
-      });
-
-      spinner.succeed("Short link created!");
-
-      logger.info("");
-      logger.info(`${chalk.green(generatedShortLink)}`);
-      logger.info("");
     } catch (error) {
       handleError(error);
     }
   });
+
+export async function runInit(option: optionSchema, config: DubConfig) {
+  const spinner = ora("Shortening URL...").start();
+  try {
+    const generatedShortLink = await getShortLink({
+      url: option.url ?? "",
+      shortLink: option.key,
+      config
+    });
+
+    spinner.succeed("Short link created!");
+    return generatedShortLink;
+  } catch (error) {
+    spinner.stop();
+    handleError(error);
+  }
+}

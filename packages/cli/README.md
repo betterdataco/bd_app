@@ -82,3 +82,25 @@ dub shorten https://example.com/jhondoe/data jhon
 If you provide a `url` but not a `shortkey`, it will generate a random shortkey using `nanoid`.
 
 If you do not provide any arguments, it will prompt you to enter a `destination url` and an optional `shortkey`.
+
+### Create
+If you don’t have any project on your dub account, you will see an error when you try to run any command. You need to create a project first on dub.co before you can use the CLI.
+
+Alternatively, you can use the `create project` command to create a new project from the CLI:
+
+```bash
+dub create project
+```
+
+This will prompt you to enter details for a new project:
+
+- **Project Name**: Descriptive name for your project
+- **Project Slug**: Unique slug used in the project URL
+- **Project Domain**: Verified domain name you own
+
+Make sure you enter a domain that is unique and unused elsewhere. 
+
+After creating the project, you can start shortening URLs. However, you need to verify domain ownership first on [dub.co](https://dub.co) before using it, otherwise you will see a warning that the domain is not verified.
+
+#### Recommanded
+For more flexibility in project creation, it is recommended to create projects directly from the [dub.co](https://dub.co) dashboard when possible. The website provides additional guidance and suggestions to create a project.

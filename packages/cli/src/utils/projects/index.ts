@@ -1,4 +1,4 @@
-import type { Domain, Project } from "@/types";
+import type { CreatedDomain, CreatedProject, Domain, Project } from "@/types";
 import fetch from "node-fetch";
 
 export async function getProjectsInfo({ token }: { token: string }) {
@@ -11,15 +11,12 @@ export async function getProjectsInfo({ token }: { token: string }) {
       }
     };
 
-    const response = await fetch(" https://api.dub.co/projects", options);
+    const response = await fetch("https://api.dub.co/projects", options);
     const parsedData = (await response.json()) as Project[];
 
     if (parsedData.length === 0) {
-      throw new Error(
-        "No projects found. Please visit https://dub.co to create a new project and try to login again. "
-      );
+      return null;
     }
-
     return parsedData;
   } catch (error) {
     throw new Error(`${error}`);
@@ -46,8 +43,53 @@ export async function getDomainsInfo({
       `https://api.dub.co/projects/${projectSlug}/domains`,
       options
     );
+
+    if (response.status === 404) {
+      throw new Error(
+        "Project not found. Please create a new project on https://dub.co and try logging in again."
+      );
+    }
     const parsedData = (await response.json()) as Domain[];
 
+    return parsedData;
+  } catch (error) {
+    throw new Error(`${error}`);
+  }
+}
+
+export async function createProject({
+  name,
+  slug,
+  domain,
+  token
+}: {
+  name: string;
+  slug: string;
+  domain: string;
+  token: string;
+}) {
+  try {
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        slug,
+        domain
+      })
+    };
+
+    const response = await fetch("https://api.dub.co/projects/", options);
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const parsedData = (await response.json()) as [
+      CreatedProject,
+      CreatedDomain
+    ];
     return parsedData;
   } catch (error) {
     throw new Error(`${error}`);
