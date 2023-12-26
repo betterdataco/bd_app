@@ -1,4 +1,4 @@
-import type { DomainInfo } from "@/types";
+import type { DomainInfo, Project } from "@/types";
 import { getConfig } from "@/utils/get-config";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
@@ -47,8 +47,9 @@ config
     try {
       const config = await getConfig();
 
+      let projects: Project[] | null = [];
       const showProjects = async () => {
-        const projects = await getProjectsInfo({
+        projects = await getProjectsInfo({
           token: config.token
         });
 
@@ -133,15 +134,29 @@ config
       const getconfig = new Configstore("dubcli");
 
       switch (options.category) {
-        case "project":
-          getconfig.set("project.slug", options.project);
+        case "project": {
+          const selectedProject = options.project;
+
+          const allProjects = projects.find((p) => p.slug === selectedProject);
+          const getDefaultDomain =
+            allProjects?.domains.find((d) => d.primary) ||
+            allProjects?.domains[0];
+
+          // update the project slug
+          getconfig.set("project.slug", options.project ?? null);
+
+          // update the domain slug and verified
+          getconfig.set("domain.slug", getDefaultDomain?.slug ?? null);
+          getconfig.set("domain.verified", getDefaultDomain?.verified ?? null);
+
           break;
+        }
         case "domain": {
           const selectedDomain = options.domain;
           const getDomainInfo = domains.find((d) => d.slug === selectedDomain);
 
-          getconfig.set("domain.slug", options.domain);
-          getconfig.set("domain.verified", getDomainInfo?.verified);
+          getconfig.set("domain.slug", options.domain ?? null);
+          getconfig.set("domain.verified", getDomainInfo?.verified ?? null);
 
           if (!getDomainInfo?.verified) {
             logger.warn(
