@@ -25,7 +25,13 @@ export const parse = (req: NextRequest) => {
   return { domain, path, fullPath, key, fullKey };
 };
 
-export const getFinalUrl = (url: string, { req }: { req: NextRequest }) => {
+export const getFinalUrl = ({
+  url,
+  req,
+}: {
+  url: string;
+  req: NextRequest;
+}) => {
   // query is the query string (e.g. dub.sh/github?utm_source=twitter -> ?utm_source=twitter)
   const searchParams = req.nextUrl.searchParams;
 
@@ -38,6 +44,7 @@ export const getFinalUrl = (url: string, { req }: { req: NextRequest }) => {
 
   // if searchParams (type: `URLSearchParams`) has the same key as target url, then overwrite it
   for (const [key, value] of searchParams) {
+    if (key === "pw") continue; // skip the password param
     urlObj.searchParams.set(key, value);
   }
 
