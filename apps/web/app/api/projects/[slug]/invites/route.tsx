@@ -1,14 +1,9 @@
-import { exceededLimitError } from "@/lib/api/errors";
+import { DubApiError, exceededLimitError } from "@/lib/api/errors";
 import { inviteUser } from "@/lib/api/users";
-import { withAuth } from "@/lib/auth";
-import { DubApiError } from "@/lib/api/errors";
+import { withAuth } from "@/lib/auth/utils";
 import prisma from "@/lib/prisma";
 import z from "@/lib/zod";
 import { NextResponse } from "next/server";
-
-const emailInviteSchema = z.object({
-  email: z.string().email(),
-});
 
 // GET /api/projects/[slug]/invites – get invites for a specific project
 export const GET = withAuth(async ({ project }) => {
@@ -22,6 +17,10 @@ export const GET = withAuth(async ({ project }) => {
     },
   });
   return NextResponse.json(invites);
+});
+
+const emailInviteSchema = z.object({
+  email: z.string().email(),
 });
 
 // POST /api/projects/[slug]/invites – invite a teammate

@@ -1,12 +1,11 @@
 import {
   addDomainToVercel,
-  changeDomainForImages,
   deleteDomainAndLinks,
   removeDomainFromVercel,
   setRootDomain,
   validateDomain,
 } from "@/lib/api/domains";
-import { withAuth } from "@/lib/auth";
+import { withAuth } from "@/lib/auth/utils";
 import prisma from "@/lib/prisma";
 import { DUB_PROJECT_ID, isDubDomain } from "@dub/utils";
 import { NextResponse } from "next/server";
@@ -95,12 +94,6 @@ export const PUT = withAuth(async ({ req, project, domain }) => {
         archived,
       },
     }),
-    ...(newDomain !== domain
-      ? [
-          removeDomainFromVercel(domain),
-          changeDomainForImages(domain, newDomain),
-        ]
-      : []),
     // if the domain is being set as the primary domain, set the current primary domain to false
     primary &&
       prisma.domain.updateMany({
@@ -112,6 +105,8 @@ export const PUT = withAuth(async ({ req, project, domain }) => {
           primary: false,
         },
       }),
+    // remove old domain from vercel
+    newDomain !== domain && removeDomainFromVercel(domain),
   ]);
 
   await setRootDomain({

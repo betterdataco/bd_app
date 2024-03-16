@@ -1,8 +1,10 @@
-import { withAuth } from "@/lib/auth";
+import { withAuth } from "@/lib/auth/utils";
 import prisma from "@/lib/prisma";
 import z from "@/lib/zod";
 import cloudinary from "cloudinary";
 import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
 
 const uploadLogoSchema = z.object({
   image: z.string().url(),

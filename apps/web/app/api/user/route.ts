@@ -1,9 +1,8 @@
-import { withSession } from "@/lib/auth";
+import { withSession } from "@/lib/auth/utils";
 import { unsubscribe } from "@/lib/flodesk";
 import prisma from "@/lib/prisma";
 import { redis } from "@/lib/upstash";
 import { trim } from "@dub/utils";
-import cloudinary from "cloudinary";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -36,15 +35,15 @@ export const PUT = withSession(async ({ req, session }) => {
     await req.json(),
   );
   try {
-    if (image) {
-      const { secure_url } = await cloudinary.v2.uploader.upload(image, {
-        public_id: session.user.id,
-        folder: "avatars",
-        overwrite: true,
-        invalidate: true,
-      });
-      image = secure_url;
-    }
+    // if (image) {
+    //   const { secure_url } = await cloudinary.v2.uploader.upload(image, {
+    //     public_id: session.user.id,
+    //     folder: "avatars",
+    //     overwrite: true,
+    //     invalidate: true,
+    //   });
+    //   image = secure_url;
+    // }
     const response = await prisma.user.update({
       where: {
         id: session.user.id,
@@ -85,9 +84,9 @@ export const DELETE = withSession(async ({ session }) => {
           id: session.user.id,
         },
       }),
-      cloudinary.v2.uploader.destroy(`avatars/${session?.user?.id}`, {
-        invalidate: true,
-      }),
+      // cloudinary.v2.uploader.destroy(`avatars/${session?.user?.id}`, {
+      //   invalidate: true,
+      // }),
       unsubscribe(session.user.email),
     ]);
     return NextResponse.json(response);

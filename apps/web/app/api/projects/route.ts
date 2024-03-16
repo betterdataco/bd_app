@@ -4,7 +4,7 @@ import {
   setRootDomain,
 } from "@/lib/api/domains";
 import { DubApiError } from "@/lib/api/errors";
-import { withSession } from "@/lib/auth";
+import { withSession } from "@/lib/auth/utils";
 import { isReservedKey } from "@/lib/edge-config";
 import prisma from "@/lib/prisma";
 import z from "@/lib/zod";
@@ -17,25 +17,6 @@ import {
 } from "@dub/utils";
 import slugify from "@sindresorhus/slugify";
 import { NextResponse } from "next/server";
-
-const createProjectSchema = z.object({
-  name: z.string().min(1).max(32),
-  slug: z
-    .string()
-    .min(3, "Slug must be at least 3 characters")
-    .max(48, "Slug must be less than 48 characters")
-    .transform((v) => slugify(v))
-    .refine((v) => validSlugRegex.test(v), { message: "Invalid slug format" })
-    .refine(async (v) => !((await isReservedKey(v)) || DEFAULT_REDIRECTS[v]), {
-      message: "Cannot use reserved slugs",
-    }),
-  domain: z
-    .string()
-    .refine((v) => validDomainRegex.test(v), {
-      message: "Invalid domain format",
-    })
-    .optional(),
-});
 
 // GET /api/projects - get all projects for the current user
 export const GET = withSession(async ({ session }) => {
@@ -59,6 +40,25 @@ export const GET = withSession(async ({ session }) => {
     },
   });
   return NextResponse.json(projects);
+});
+
+const createProjectSchema = z.object({
+  name: z.string().min(1).max(32),
+  slug: z
+    .string()
+    .min(3, "Slug must be at least 3 characters")
+    .max(48, "Slug must be less than 48 characters")
+    .transform((v) => slugify(v))
+    .refine((v) => validSlugRegex.test(v), { message: "Invalid slug format" })
+    .refine(async (v) => !((await isReservedKey(v)) || DEFAULT_REDIRECTS[v]), {
+      message: "Cannot use reserved slugs",
+    }),
+  domain: z
+    .string()
+    .refine((v) => validDomainRegex.test(v), {
+      message: "Invalid domain format",
+    })
+    .optional(),
 });
 
 export const POST = withSession(async ({ req, session }) => {

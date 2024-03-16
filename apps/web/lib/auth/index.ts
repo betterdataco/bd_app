@@ -1,575 +1,209 @@
-import { DubApiError, handleAndReturnErrorResponse } from "@/lib/api/errors";
+import { isBlacklistedEmail } from "@/lib/edge-config";
+import { subscribe } from "@/lib/flodesk";
 import prisma from "@/lib/prisma";
-import {
-  API_DOMAIN,
-  DUB_PROJECT_ID,
-  getSearchParams,
-  isDubDomain,
-} from "@dub/utils";
-import { Link as LinkProps } from "@prisma/client";
-import { createHash } from "crypto";
-import { getServerSession } from "next-auth/next";
-import { exceededLimitError } from "../api/errors";
-import { PlanProps, ProjectProps } from "../types";
-import { ratelimit } from "../upstash";
-import { authOptions } from "./options";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import type { NextAuthConfig } from "next-auth";
+import NextAuth from "next-auth";
+import GithubProvider from "next-auth/providers/github";
+import GoogleProvider from "next-auth/providers/google";
 
-export interface Session {
-  user: {
-    email: string;
-    id: string;
-    name: string;
-    image?: string;
-  };
-}
+const VERCEL_DEPLOYMENT = !!process.env.VERCEL_URL;
 
-export const getSession = async () => {
-  return getServerSession(authOptions) as Promise<Session>;
-};
-
-export const hashToken = (
-  token: string,
-  {
-    noSecret = false,
-  }: {
-    noSecret?: boolean;
-  } = {},
-) => {
-  return createHash("sha256")
-    .update(`${token}${noSecret ? "" : process.env.NEXTAUTH_SECRET}`)
-    .digest("hex");
-};
-
-interface WithAuthHandler {
-  ({
-    req,
-    params,
-    searchParams,
-    headers,
-    session,
-    project,
-    domain,
-    link,
-  }: {
-    req: Request;
-    params: Record<string, string>;
-    searchParams: Record<string, string>;
-    headers?: Record<string, string>;
-    session: Session;
-    project: ProjectProps;
-    domain: string;
-    link?: LinkProps;
-  }): Promise<Response>;
-}
-
-export const withAuth = (
-  handler: WithAuthHandler,
-  {
-    requiredPlan = [
-      "free",
-      "pro",
-      "business",
-      "business plus",
-      "business max",
-      "business extra",
-      "enterprise",
-    ], // if the action needs a specific plan
-    requiredRole = ["owner", "member"],
-    needNotExceededClicks, // if the action needs the user to not have exceeded their clicks usage
-    needNotExceededLinks, // if the action needs the user to not have exceeded their links usage
-    allowAnonymous, // special case for /api/links (POST /api/links) – allow no session
-    allowSelf, // special case for removing yourself from a project
-    skipLinkChecks, // special case for /api/links/exists – skip link checks
-  }: {
-    requiredPlan?: Array<PlanProps>;
-    requiredRole?: Array<"owner" | "member">;
-    needNotExceededClicks?: boolean;
-    needNotExceededLinks?: boolean;
-    allowAnonymous?: boolean;
-    allowSelf?: boolean;
-    skipLinkChecks?: boolean;
-  } = {},
-) => {
-  return async (
-    req: Request,
-    { params }: { params: Record<string, string> | undefined },
-  ) => {
-    const searchParams = getSearchParams(req.url);
-    const { linkId } = params || {};
-
-    let apiKey: string | undefined = undefined;
-
-    const authorizationHeader = req.headers.get("Authorization");
-    if (authorizationHeader) {
-      if (!authorizationHeader.includes("Bearer ")) {
-        return new Response(
-          "Misconfigured authorization header. Did you forget to add 'Bearer '? Learn more: https://d.to/auth ",
-          {
-            status: 400,
-          },
-        );
-      }
-      apiKey = authorizationHeader.replace("Bearer ", "");
-    }
-
-    const domain = params?.domain || searchParams.domain;
-    const key = searchParams.key;
-
-    let session: Session | undefined;
-    let headers = {};
-
-    const slug = params?.slug || searchParams.projectSlug;
-
-    try {
-      // if there's no projectSlug defined
-      if (!slug) {
-        // for /api/links (POST /api/links) – allow no session (but warn if user provides apiKey)
-        if (allowAnonymous && !apiKey) {
-          // @ts-expect-error
-          return await handler({
-            req,
-            params: params || {},
-            searchParams,
-            headers,
-          });
-        } else {
-          throw new DubApiError({
-            code: "not_found",
-            message:
-              "Project slug not found. Did you forget to include a `projectSlug` query parameter?",
-          });
-        }
-      }
-
-      if (apiKey) {
-        const hashedKey = hashToken(apiKey, {
-          noSecret: true,
-        });
-
-        const user = await prisma.user.findFirst({
-          where: {
-            tokens: {
-              some: {
-                hashedKey,
-              },
-            },
-          },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        });
-        if (!user) {
-          throw new DubApiError({
-            code: "unauthorized",
-            message: "Unauthorized: Invalid API key.",
-          });
-        }
-
-        const { success, limit, reset, remaining } = await ratelimit(
-          10,
-          "1 s",
-        ).limit(apiKey);
-
-        headers = {
-          "Retry-After": reset.toString(),
-          "X-RateLimit-Limit": limit.toString(),
-          "X-RateLimit-Remaining": remaining.toString(),
-          "X-RateLimit-Reset": reset.toString(),
-        };
-
-        if (!success) {
-          throw new DubApiError({
-            code: "rate_limit_exceeded",
-            message: "Too many requests.",
-          });
-        }
-        await prisma.token.update({
-          where: {
-            hashedKey,
-          },
-          data: {
-            lastUsed: new Date(),
-          },
-        });
-        session = {
-          user: {
-            id: user.id,
-            name: user.name || "",
-            email: user.email || "",
-          },
-        };
-      } else {
-        session = await getSession();
-        if (!session?.user?.id) {
-          throw new DubApiError({
-            code: "unauthorized",
-            message: "Unauthorized: Login required.",
-          });
-        }
-      }
-
-      let [project, link] = (await Promise.all([
-        prisma.project.findUnique({
-          where: {
-            slug,
-          },
-          select: {
-            id: true,
-            name: true,
-            slug: true,
-            logo: true,
-            usage: true,
-            usageLimit: true,
-            linksUsage: true,
-            linksLimit: true,
-            domainsLimit: true,
-            tagsLimit: true,
-            usersLimit: true,
-            plan: true,
-            stripeId: true,
-            billingCycleStart: true,
-            createdAt: true,
-            users: {
-              where: {
-                userId: session.user.id,
-              },
-              select: {
-                role: true,
-              },
-            },
-            domains: {
-              select: {
-                slug: true,
-                primary: true,
-              },
-            },
-            inviteCode: true,
-          },
-        }),
-        linkId
-          ? prisma.link.findUnique({
-              where: {
-                id: linkId,
-              },
-            })
-          : domain &&
-            key &&
-            (key === "_root"
-              ? prisma.domain.findUnique({
-                  where: {
-                    slug: domain,
-                  },
-                })
-              : prisma.link.findUnique({
-                  where: {
-                    domain_key: {
-                      domain,
-                      key,
-                    },
-                  },
-                })),
-      ])) as [ProjectProps, LinkProps | undefined];
-
-      if (!project || !project.users) {
-        // project doesn't exist
-        throw new DubApiError({
-          code: "not_found",
-          message: "Project not found.",
-        });
-      }
-
-      // prevent unauthorized access to domains that don't belong to the project
-      if (
-        domain &&
-        !isDubDomain(domain) &&
-        !project.domains.find((d) => d.slug === domain)
-      ) {
-        throw new DubApiError({
-          code: "forbidden",
-          message: "Domain does not belong to project.",
-        });
-      }
-
-      // project exists but user is not part of it
-      if (project.users.length === 0) {
-        const pendingInvites = await prisma.projectInvite.findUnique({
-          where: {
-            email_projectId: {
-              email: session.user.email,
-              projectId: project.id,
-            },
-          },
-          select: {
-            expires: true,
-          },
-        });
-        if (!pendingInvites) {
-          throw new DubApiError({
-            code: "not_found",
-            message: "Project not found.",
-          });
-        } else if (pendingInvites.expires < new Date()) {
-          throw new DubApiError({
-            code: "invite_expired",
-            message: "Project invite expired.",
-          });
-        } else {
-          throw new DubApiError({
-            code: "invite_pending",
-            message: "Project invite pending.",
-          });
-        }
-      }
-
-      // project role checks
-      if (
-        !requiredRole.includes(project.users[0].role) &&
-        !(allowSelf && searchParams.userId === session.user.id)
-      ) {
-        throw new DubApiError({
-          code: "forbidden",
-          message: "Unauthorized: Insufficient permissions.",
-        });
-      }
-
-      // clicks usage overage checks
-      if (needNotExceededClicks && project.usage > project.usageLimit) {
-        throw new DubApiError({
-          code: "forbidden",
-          message: exceededLimitError({
-            plan: project.plan,
-            limit: project.usageLimit,
-            type: "clicks",
-          }),
-        });
-      }
-
-      // links usage overage checks
-      if (
-        needNotExceededLinks &&
-        project.linksUsage > project.linksLimit &&
-        (project.plan === "free" || project.plan === "pro")
-      ) {
-        throw new DubApiError({
-          code: "forbidden",
-          message: exceededLimitError({
-            plan: project.plan,
-            limit: project.linksLimit,
-            type: "links",
-          }),
-        });
-      }
-
-      // plan checks
-      if (!requiredPlan.includes(project.plan)) {
-        throw new DubApiError({
-          code: "forbidden",
-          message: "Unauthorized: Need higher plan.",
-        });
-      }
-
-      // analytics API checks
-      const url = new URL(req.url || "", API_DOMAIN);
-      if (
-        project.plan === "free" &&
-        apiKey &&
-        url.pathname.includes("/analytics")
-      ) {
-        throw new DubApiError({
-          code: "forbidden",
-          message: "Analytics API is only available on paid plans.",
-        });
-      }
-
-      // link checks (if linkId or domain and key are provided)
-      if ((linkId || (domain && key && key !== "_root")) && !skipLinkChecks) {
-        // special case for getting domain by ID
-        // TODO: refactor domains to use the same logic as links
-        if (!link && searchParams.checkDomain === "true") {
-          const domain = await prisma.domain.findUnique({
-            where: {
-              id: linkId,
-            },
-          });
-          if (domain) {
-            link = {
-              ...domain,
-              domain: domain.slug,
-              key: "_root",
-              url: domain.target || "",
-            } as unknown as LinkProps;
-          }
-        }
-
-        // make sure the link is owned by the project
-        if (!link || link.projectId !== project?.id) {
-          throw new DubApiError({
-            code: "not_found",
-            message: "Link not found.",
-          });
-        }
-      }
-
-      return await handler({
-        req,
-        params: params || {},
-        searchParams,
-        headers,
-        session,
-        project,
-        domain,
-        link,
-      });
-    } catch (error) {
-      console.error("withAuth Error -->", error.message);
-      return handleAndReturnErrorResponse(error);
-    }
-  };
-};
-
-interface WithSessionHandler {
-  ({
-    req,
-    params,
-    searchParams,
-    session,
-  }: {
-    req: Request;
-    params: Record<string, string>;
-    searchParams: Record<string, string>;
-    session: Session;
-  }): Promise<Response>;
-}
-
-export const withSession =
-  (handler: WithSessionHandler) =>
-  async (req: Request, { params }: { params: Record<string, string> }) => {
-    try {
-      let session: Session | undefined;
-      let headers = {};
-
-      const authorizationHeader = req.headers.get("Authorization");
-      if (authorizationHeader) {
-        if (!authorizationHeader.includes("Bearer ")) {
-          throw new DubApiError({
-            code: "bad_request",
-            message:
-              "Misconfigured authorization header. Did you forget to add 'Bearer '? Learn more: https://d.to/auth ",
-          });
-        }
-        const apiKey = authorizationHeader.replace("Bearer ", "");
-
-        const hashedKey = hashToken(apiKey, {
-          noSecret: true,
-        });
-
-        const user = await prisma.user.findFirst({
-          where: {
-            tokens: {
-              some: {
-                hashedKey,
-              },
-            },
-          },
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        });
-        if (!user) {
-          throw new DubApiError({
-            code: "unauthorized",
-            message: "Unauthorized: Invalid API key.",
-          });
-        }
-
-        const { success, limit, reset, remaining } = await ratelimit(
-          10,
-          "1 s",
-        ).limit(apiKey);
-
-        headers = {
-          "Retry-After": reset.toString(),
-          "X-RateLimit-Limit": limit.toString(),
-          "X-RateLimit-Remaining": remaining.toString(),
-          "X-RateLimit-Reset": reset.toString(),
-        };
-
-        if (!success) {
-          return new Response("Too many requests.", {
-            status: 429,
-            headers,
-          });
-        }
-        await prisma.token.update({
-          where: {
-            hashedKey,
-          },
-          data: {
-            lastUsed: new Date(),
-          },
-        });
-        session = {
-          user: {
-            id: user.id,
-            name: user.name || "",
-            email: user.email || "",
-          },
-        };
-      } else {
-        session = await getSession();
-        if (!session?.user.id) {
-          throw new DubApiError({
-            code: "unauthorized",
-            message: "Unauthorized: Login required.",
-          });
-        }
-      }
-
-      const searchParams = getSearchParams(req.url);
-      return await handler({ req, params, searchParams, session });
-    } catch (error) {
-      console.error("withSession Error -->", error.message);
-      return handleAndReturnErrorResponse(error);
-    }
-  };
-
-// Internal use only (for admin portal)
-interface WithAdminHandler {
-  ({
-    req,
-    params,
-    searchParams,
-  }: {
-    req: Request;
-    params: Record<string, string>;
-    searchParams: Record<string, string>;
-  }): Promise<Response>;
-}
-
-export const withAdmin =
-  (handler: WithAdminHandler) =>
-  async (req: Request, { params }: { params: Record<string, string> }) => {
-    const session = await getSession();
-    if (!session?.user) {
-      return new Response("Unauthorized: Login required.", { status: 401 });
-    }
-
-    const response = await prisma.projectUsers.findUnique({
-      where: {
-        userId_projectId: {
-          userId: session.user.id,
-          projectId: DUB_PROJECT_ID,
-        },
+export const config = {
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
+    }),
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
+      allowDangerousEmailAccountLinking: true,
+    }),
+  ],
+  adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
+  cookies: {
+    sessionToken: {
+      name: `${VERCEL_DEPLOYMENT ? "__Secure-" : ""}next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        // When working on localhost, the cookie domain must be omitted entirely (https://stackoverflow.com/a/1188145)
+        domain: VERCEL_DEPLOYMENT
+          ? `.${process.env.NEXT_PUBLIC_APP_DOMAIN}`
+          : undefined,
+        secure: VERCEL_DEPLOYMENT,
       },
-    });
-    if (!response) {
-      return new Response("Unauthorized: Not an admin.", { status: 401 });
-    }
+    },
+  },
+  pages: {
+    error: "/login",
+    newUser: "/welcome",
+  },
+  callbacks: {
+    signIn: async ({ user, account, profile }) => {
+      console.log({ user, account, profile });
+      if (!user.email || (await isBlacklistedEmail(user.email))) {
+        return false;
+      }
+      if (account?.provider === "google") {
+        const userExists = await prisma.user.findUnique({
+          where: { email: user.email },
+          select: { name: true, image: true },
+        });
+        // if the user already exists via email,
+        // update the user with their name and image from Google
+        if (userExists && profile) {
+          await prisma.user.update({
+            where: { email: user.email },
+            data: {
+              ...(userExists.name ? {} : { name: profile.name }),
+              ...(userExists.image ? {} : { image: profile.picture }),
+            },
+          });
+        }
+      } else if (account?.provider === "github") {
+        const userExists = await prisma.user.findUnique({
+          where: { email: user.email },
+          select: { name: true, image: true },
+        });
+        // if the user already exists via email,
+        // update the user with their name and image from Github
+        if (userExists && profile) {
+          await prisma.user.update({
+            where: { email: user.email },
+            data: {
+              ...(!userExists.name && {
+                name: (profile.name || profile.login) as string,
+              }),
+              ...(!userExists.image && { image: profile.avatar_url as string }),
+            },
+          });
+        }
+      } else if (
+        account?.provider === "saml" ||
+        account?.provider === "saml-idp"
+      ) {
+        let samlProfile;
 
-    const searchParams = getSearchParams(req.url);
-    return handler({ req, params, searchParams });
-  };
+        if (account?.provider === "saml-idp") {
+          // @ts-ignore
+          samlProfile = user.profile;
+          if (!samlProfile) {
+            return true;
+          }
+        } else {
+          samlProfile = profile;
+        }
+
+        if (!samlProfile?.requested?.tenant) {
+          return false;
+        }
+        const project = await prisma.project.findUnique({
+          where: {
+            id: samlProfile.requested.tenant,
+          },
+        });
+        if (project) {
+          await Promise.allSettled([
+            // add user to project
+            prisma.projectUsers.upsert({
+              where: {
+                userId_projectId: {
+                  projectId: project.id,
+                  userId: user.id!,
+                },
+              },
+              update: {},
+              create: {
+                projectId: project.id,
+                userId: user.id!,
+              },
+            }),
+            // delete any pending invites for this user
+            prisma.projectInvite.delete({
+              where: {
+                email_projectId: {
+                  email: user.email,
+                  projectId: project.id,
+                },
+              },
+            }),
+          ]);
+        }
+      }
+      return true;
+    },
+    jwt: async ({ token, user, trigger }) => {
+      // force log out banned users
+      if (!token.email || (await isBlacklistedEmail(token.email))) {
+        return {};
+      }
+
+      if (user) {
+        token.user = user;
+      }
+
+      // refresh the user's data if they update their name / email
+      if (trigger === "update") {
+        const refreshedUser = await prisma.user.findUnique({
+          where: { id: token.sub },
+        });
+        if (refreshedUser) {
+          token.user = refreshedUser;
+        } else {
+          return {};
+        }
+      }
+
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = {
+        id: token.sub,
+        // @ts-ignore
+        ...(token || session).user,
+      };
+      return session;
+    },
+  },
+  events: {
+    async signIn(message) {
+      if (message.isNewUser) {
+        const email = message.user.email as string;
+        const user = await prisma.user.findUnique({
+          where: { email },
+          select: {
+            name: true,
+            createdAt: true,
+          },
+        });
+        // only send the welcome email if the user was created in the last 10s
+        // (this is a workaround because the `isNewUser` flag is triggered when a user does `dangerousEmailAccountLinking`)
+        if (
+          user?.createdAt &&
+          new Date(user.createdAt).getTime() > Date.now() - 10000 &&
+          process.env.NEXT_PUBLIC_IS_DUB
+        ) {
+          await Promise.allSettled([
+            subscribe({ email, name: user.name || undefined }),
+            // sendEmail({
+            //   subject: "Welcome to Dub.co!",
+            //   email,
+            //   react: WelcomeEmail({
+            //     email,
+            //     name: user.name || null,
+            //   }),
+            //   marketing: true,
+            // }),
+          ]);
+        }
+      }
+    },
+  },
+} satisfies NextAuthConfig;
+
+export const { handlers, auth, signIn, signOut } = NextAuth(config);

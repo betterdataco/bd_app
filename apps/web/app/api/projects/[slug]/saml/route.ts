@@ -1,8 +1,10 @@
-import { withAuth } from "@/lib/auth";
+import { withAuth } from "@/lib/auth/utils";
 import jackson, { samlAudience } from "@/lib/jackson";
 import z from "@/lib/zod";
 import { APP_DOMAIN_WITH_NGROK } from "@dub/utils";
 import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
 
 const createSAMLConnectionSchema = z
   .object({

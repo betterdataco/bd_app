@@ -1,8 +1,10 @@
-import { withAuth } from "@/lib/auth";
 import { DubApiError } from "@/lib/api/errors";
+import { withAuth } from "@/lib/auth/utils";
 import jackson from "@/lib/jackson";
 import z from "@/lib/zod";
 import { NextResponse } from "next/server";
+
+export const runtime = "nodejs";
 
 const createDirectorySchema = z.object({
   provider: z.enum(["okta-scim-v2", "azure-scim-v2", "google"]).optional(),

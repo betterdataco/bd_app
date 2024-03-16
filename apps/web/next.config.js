@@ -11,8 +11,6 @@ const REDIRECT_SEGMENTS = [
 module.exports = {
   reactStrictMode: false,
   experimental: {
-    useDeploymentId: true,
-    useDeploymentIdServerActions: true,
     serverComponentsExternalPackages: [
       "@react-email/components",
       "@react-email/render",

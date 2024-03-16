@@ -1,4 +1,4 @@
-import { hashToken, withSession } from "@/lib/auth";
+import { hashToken, withSession } from "@/lib/auth/utils";
 import { qstash } from "@/lib/cron";
 import prisma from "@/lib/prisma";
 import { APP_DOMAIN_WITH_NGROK, nanoid } from "@dub/utils";
@@ -33,7 +33,7 @@ export const GET = withSession(async ({ session }) => {
 export const POST = withSession(async ({ req, session }) => {
   const { name } = await req.json();
   const token = nanoid(24);
-  const hashedKey = hashToken(token, {
+  const hashedKey = await hashToken(token, {
     noSecret: true,
   });
   // take first 3 and last 4 characters of the key
