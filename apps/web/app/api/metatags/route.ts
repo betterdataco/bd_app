@@ -1,5 +1,5 @@
 import { DubApiError, handleAndReturnErrorResponse } from "@/lib/api/errors";
-import { ratelimit } from "@/lib/upstash";
+import { ratelimit } from "@/lib/unkey";
 import z from "@/lib/zod";
 import { isValidUrl } from "@dub/utils";
 import { getToken } from "next-auth/jwt";

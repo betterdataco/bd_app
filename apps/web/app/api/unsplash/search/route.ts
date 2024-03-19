@@ -1,4 +1,4 @@
-import { ratelimit } from "@/lib/upstash";
+import { ratelimit } from "@/lib/unkey";
 import { NextResponse } from "next/server";
 import { unsplash } from "../utils";
 import { getIdentityHash } from "@/lib/edge";
