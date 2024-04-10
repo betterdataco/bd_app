@@ -9,7 +9,7 @@ import {
   Button,
   LinkedIn,
   LoadingCircle,
-  Modal,
+  Responsive,
   Tooltip,
   TooltipContent,
   Twitter,
@@ -36,8 +36,6 @@ import {
   useSearchParams,
 } from "next/navigation";
 import {
-  Dispatch,
-  SetStateAction,
   UIEvent,
   useCallback,
   useEffect,
@@ -48,6 +46,7 @@ import {
 import { toast } from "sonner";
 import { mutate } from "swr";
 import { useDebounce, useDebouncedCallback } from "use-debounce";
+import { popModal, pushModal } from "..";
 import AndroidSection from "./android-section";
 import CloakingSection from "./cloaking-section";
 import CommentsSection from "./comments-section";
@@ -61,17 +60,16 @@ import TagsSection from "./tags-section";
 import UTMSection from "./utm-section";
 import { TriangleAlert } from "lucide-react";
 
-function AddEditLinkModal({
-  showAddEditLinkModal,
-  setShowAddEditLinkModal,
+export function AddEditLinkModal({
   props,
   duplicateProps,
   homepageDemo,
 }: {
-  showAddEditLinkModal: boolean;
-  setShowAddEditLinkModal: Dispatch<SetStateAction<boolean>>;
   props?: LinkWithTagsProps;
-  duplicateProps?: LinkWithTagsProps;
+  duplicateProps?: Omit<
+    LinkWithTagsProps,
+    "id" | "createdAt" | "updatedAt" | "userId"
+  >;
   homepageDemo?: boolean;
 }) {
   const params = useParams() as { slug?: string };
@@ -120,7 +118,7 @@ function AddEditLinkModal({
 
   useEffect(() => {
     // when someone pastes a URL
-    if (showAddEditLinkModal && url.length > 0) {
+    if (url.length > 0) {
       // if it's a new link and there are matching default domains, set it as the domain
       if (!props && activeDefaultDomains) {
         const urlDomain = getDomainWithoutWWW(url) || "";
@@ -137,7 +135,7 @@ function AddEditLinkModal({
         generateRandomKey();
       }
     }
-  }, [showAddEditLinkModal, url]);
+  }, [url]);
 
   const runKeyChecks = async (e: React.FocusEvent<HTMLInputElement>) => {
     if (!e.target.value) return;
@@ -175,7 +173,7 @@ function AddEditLinkModal({
      * - custom OG proxy is not enabled
      * - url is not empty
      **/
-    if (showAddEditLinkModal && !proxy && debouncedUrl.length > 0) {
+    if (!proxy && debouncedUrl.length > 0) {
       setData((prev) => ({
         ...prev,
         title: null,
@@ -207,7 +205,7 @@ function AddEditLinkModal({
     } else {
       setGeneratingMetatags(false);
     }
-  }, [debouncedUrl, password, showAddEditLinkModal, proxy]);
+  }, [debouncedUrl, password, proxy]);
 
   const endpoint = useMemo(() => {
     if (props?.key) {
@@ -244,7 +242,6 @@ function AddEditLinkModal({
       - for an existing link, there's no changes
     */
     if (
-      !showAddEditLinkModal ||
       saving ||
       keyError ||
       urlError ||
@@ -268,7 +265,7 @@ function AddEditLinkModal({
     } else {
       return false;
     }
-  }, [showAddEditLinkModal, saving, keyError, urlError, props, data]);
+  }, [saving, keyError, urlError, props, data]);
 
   const randomIdx = Math.floor(Math.random() * 100);
 
@@ -286,6 +283,18 @@ function AddEditLinkModal({
 
   const searchParams = useSearchParams();
   const { queryParams } = useRouterStuff();
+
+  useEffect(() => {
+    return () => {
+      if (welcomeFlow) {
+        router.back();
+      } else if (searchParams.has("newLink")) {
+        queryParams({
+          del: ["newLink"],
+        });
+      }
+    };
+  }, [welcomeFlow]);
 
   const shortLink = useMemo(() => {
     return linkConstructor({
@@ -305,18 +314,11 @@ function AddEditLinkModal({
   const randomLinkedInNonce = useMemo(() => nanoid(8), []);
 
   return (
-    <Modal
-      showModal={showAddEditLinkModal}
-      setShowModal={setShowAddEditLinkModal}
+    <Responsive.Content
       className="max-w-screen-lg"
-      preventDefaultClose={homepageDemo ? false : true}
-      onClose={() => {
-        if (welcomeFlow) {
-          router.back();
-        } else if (searchParams.has("newLink")) {
-          queryParams({
-            del: ["newLink"],
-          });
+      onPointerDownOutside={(e) => {
+        if (!homepageDemo) {
+          e.preventDefault();
         }
       }}
     >
@@ -324,12 +326,7 @@ function AddEditLinkModal({
         {!welcomeFlow && !homepageDemo && (
           <button
             onClick={() => {
-              setShowAddEditLinkModal(false);
-              if (searchParams.has("newLink")) {
-                queryParams({
-                  del: ["newLink"],
-                });
-              }
+              popModal();
             }}
             className="group absolute right-0 top-0 z-20 m-3 hidden rounded-full p-2 text-gray-500 transition-all duration-75 hover:bg-gray-100 focus:outline-none active:bg-gray-200 md:block"
           >
@@ -376,7 +373,7 @@ function AddEditLinkModal({
                   // for welcome page, redirect to links page after adding a link
                   if (pathname === "/welcome") {
                     router.push("/links");
-                    setShowAddEditLinkModal(false);
+                    popModal();
                   }
                   const data = await res.json();
                   // copy shortlink to clipboard when adding a new link
@@ -394,7 +391,7 @@ function AddEditLinkModal({
                   } else {
                     toast.success("Successfully updated shortlink!");
                   }
-                  setShowAddEditLinkModal(false);
+                  popModal();
                 } else {
                   const { error } = await res.json();
                   if (error) {
@@ -679,15 +676,11 @@ function AddEditLinkModal({
           <Preview data={data} generatingMetatags={generatingMetatags} />
         </div>
       </div>
-    </Modal>
+    </Responsive.Content>
   );
 }
 
-function AddEditLinkButton({
-  setShowAddEditLinkModal,
-}: {
-  setShowAddEditLinkModal: Dispatch<SetStateAction<boolean>>;
-}) {
+export function AddEditLinkButton() {
   const { nextPlan, exceededLinks } = useWorkspace();
   const { queryParams } = useRouterStuff();
 
@@ -710,7 +703,9 @@ function AddEditLinkButton({
       !exceededLinks
     ) {
       e.preventDefault(); // or else it'll show up in the input field since that's getting auto-selected
-      setShowAddEditLinkModal(true);
+      pushModal("AddEditLink", {
+        props: undefined,
+      });
     }
   }, []);
 
@@ -733,7 +728,7 @@ function AddEditLinkButton({
       !existingModalBackdrop &&
       !exceededLinks
     ) {
-      setShowAddEditLinkModal(true);
+      pushModal("AddEditLink", { props: undefined });
     }
   };
 
@@ -765,52 +760,11 @@ function AddEditLinkButton({
           />
         ) : undefined
       }
-      onClick={() => setShowAddEditLinkModal(true)}
+      onClick={() =>
+        pushModal("AddEditLink", {
+          props: undefined,
+        })
+      }
     />
-  );
-}
-
-export function useAddEditLinkModal({
-  props,
-  duplicateProps,
-  homepageDemo,
-}: {
-  props?: LinkWithTagsProps;
-  duplicateProps?: LinkWithTagsProps;
-  homepageDemo?: boolean;
-} = {}) {
-  const [showAddEditLinkModal, setShowAddEditLinkModal] = useState(false);
-
-  const AddEditLinkModalCallback = useCallback(() => {
-    return (
-      <AddEditLinkModal
-        showAddEditLinkModal={showAddEditLinkModal}
-        setShowAddEditLinkModal={setShowAddEditLinkModal}
-        props={props}
-        duplicateProps={duplicateProps}
-        homepageDemo={homepageDemo}
-      />
-    );
-  }, [showAddEditLinkModal, setShowAddEditLinkModal]);
-
-  const AddEditLinkButtonCallback = useCallback(() => {
-    return (
-      <AddEditLinkButton setShowAddEditLinkModal={setShowAddEditLinkModal} />
-    );
-  }, [setShowAddEditLinkModal]);
-
-  return useMemo(
-    () => ({
-      showAddEditLinkModal,
-      setShowAddEditLinkModal,
-      AddEditLinkModal: AddEditLinkModalCallback,
-      AddEditLinkButton: AddEditLinkButtonCallback,
-    }),
-    [
-      showAddEditLinkModal,
-      setShowAddEditLinkModal,
-      AddEditLinkModalCallback,
-      AddEditLinkButtonCallback,
-    ],
   );
 }
