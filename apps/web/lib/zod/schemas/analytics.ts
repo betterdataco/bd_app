@@ -20,6 +20,36 @@ export const getAnalyticsQuerySchema = z.object({
     .enum(intervals)
     .optional()
     .describe("The interval to retrieve analytics for."),
+  startDate: z
+    .string()
+    .datetime()
+    .refine(
+      (value) => {
+        const inputDate = new Date(value);
+        const foundingDate = new Date("2022-09-22T00:00:00.000Z"); // Dub.co founding date
+        return inputDate >= foundingDate;
+      },
+      {
+        message: "The start date cannot be earlier than September 22, 2022.",
+      },
+    )
+    .optional()
+    .describe("The start date and time when to retrieve analytics from."),
+  endDate: z
+    .string()
+    .datetime()
+    .refine(
+      (value) => {
+        const todaysDate = new Date();
+        const inputDate = new Date(value);
+        return inputDate <= todaysDate;
+      },
+      {
+        message: "The end date cannot be in future.",
+      },
+    )
+    .optional()
+    .describe("The end date and time when to retrieve analytics from."),
   country: z
     .enum(COUNTRY_CODES)
     .optional()
