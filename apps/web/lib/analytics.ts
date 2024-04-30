@@ -1,3 +1,4 @@
+import { nanoid } from "@dub/utils";
 import { DATABASE_URL, conn } from "./planetscale";
 import z from "./zod";
 import { getAnalyticsQuerySchema } from "./zod/schemas/analytics";
@@ -192,4 +193,8 @@ export const getAnalytics = async ({
       }
       return data;
     });
+};
+
+export const generateClickId = () => {
+  return nanoid(16);
 };

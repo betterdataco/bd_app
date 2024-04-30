@@ -4,10 +4,10 @@ import {
   LOCALHOST_IP,
   capitalize,
   getDomainWithoutWWW,
-  nanoid,
 } from "@dub/utils";
-import { ipAddress } from "@vercel/edge";
-import { NextRequest, userAgent } from "next/server";
+import { geolocation, ipAddress } from "@vercel/edge";
+import { userAgent } from "next/server";
+import { generateClickId } from "./analytics";
 import { detectBot, detectQr, getIdentityHash } from "./middleware/utils";
 import { conn } from "./planetscale";
 import { LinkProps } from "./types";
@@ -21,18 +21,23 @@ export async function recordClick({
   id,
   url,
   root,
+  clickId,
+  affiliateId,
 }: {
-  req: NextRequest;
+  req: Request;
   id: string;
   url?: string;
   root?: boolean;
+  clickId?: string;
+  affiliateId?: string;
 }) {
   const isBot = detectBot(req);
   if (isBot) {
     return null; // don't record clicks from bots
   }
   const isQr = detectQr(req);
-  const geo = process.env.VERCEL === "1" ? req.geo : LOCALHOST_GEO_DATA;
+  const geo =
+    process.env.VERCEL === "1" ? geolocation(req) : LOCALHOST_GEO_DATA;
   const ua = userAgent(req);
   const referer = req.headers.get("referer");
   const ip = process.env.VERCEL === "1" ? ipAddress(req) : LOCALHOST_IP;
@@ -58,9 +63,10 @@ export async function recordClick({
         body: JSON.stringify({
           timestamp: new Date(Date.now()).toISOString(),
           identity_hash,
-          click_id: nanoid(16),
+          click_id: clickId || generateClickId(),
           link_id: id,
           alias_link_id: "",
+          // affiliate_id: affiliateId || "",
           url: url || "",
           ip:
             // only record IP if it's a valid IP and not from EU
@@ -150,6 +156,35 @@ export async function recordLink({
         tagIds: link.tags?.map(({ tagId }) => tagId) || [],
         project_id: link.projectId || "",
         deleted: deleted ? 1 : 0,
+      }),
+    },
+  ).then((res) => res.json());
+}
+
+export async function recordConversion({
+  eventName,
+  properties,
+  clickId,
+  affiliateId,
+}: {
+  eventName: string;
+  properties: Record<string, any>;
+  clickId: string;
+  affiliateId?: string;
+}) {
+  return await fetch(
+    `${process.env.TINYBIRD_API_URL}/v0/events?name=dub_conversion_events&wait=true`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.TINYBIRD_API_KEY}`,
+      },
+      body: JSON.stringify({
+        timestamp: new Date(Date.now()).toISOString(),
+        click_id: clickId,
+        affiliate_id: affiliateId || "",
+        event_name: eventName,
+        properties: properties,
       }),
     },
   ).then((res) => res.json());

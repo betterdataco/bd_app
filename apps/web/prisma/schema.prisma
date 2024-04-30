@@ -26,6 +26,7 @@ model User {
   tokens     Token[]
   createdAt  DateTime       @default(now())
   subscribed Boolean        @default(true)
+  affiliates Affiliate[]
   source     String?
 
   @@index(source)
@@ -115,8 +116,9 @@ model Project {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  inviteCode     String?          @unique
+  inviteCode String?     @unique
   defaultDomains DefaultDomains[]
+  affiliate  Affiliate[]
 }
 
 model ProjectInvite {
@@ -270,6 +272,23 @@ model Link {
   @@index(checkDisabled)
   @@index(userId)
   @@fulltext([key, url])
+}
+
+model Affiliate {
+  id        String   @id @default(cuid())
+  email     String
+  username  String
+  userId    String?
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([email, projectId])
+  @@unique([username, projectId])
+  @@index([projectId])
+  @@index([userId])
 }
 
 model Tag {
