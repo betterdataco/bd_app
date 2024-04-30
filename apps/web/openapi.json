@@ -179,17 +179,17 @@
                   "title": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "description": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "image": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "rewrite": {
                     "type": "boolean",
@@ -1652,17 +1652,17 @@
                   "title": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "description": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "image": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "rewrite": {
                     "type": "boolean",
@@ -2719,17 +2719,17 @@
                     "title": {
                       "type": "string",
                       "nullable": true,
-                      "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                      "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                     },
                     "description": {
                       "type": "string",
                       "nullable": true,
-                      "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                      "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                     },
                     "image": {
                       "type": "string",
                       "nullable": true,
-                      "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                      "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                     },
                     "rewrite": {
                       "type": "boolean",
@@ -10060,17 +10060,17 @@
           "title": {
             "type": "string",
             "nullable": true,
-            "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+            "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
           },
           "description": {
             "type": "string",
             "nullable": true,
-            "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+            "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
           },
           "image": {
             "type": "string",
             "nullable": true,
-            "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+            "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
           },
           "rewrite": {
             "type": "boolean",
@@ -11127,7 +11127,7 @@
           "qrCode": {
             "type": "string",
             "format": "uri",
-            "description": "The full URL of the QR code for the short link (e.g. `https://api.dub.co/qr?url=https://dub.sh/try`)."
+            "description": "The full URL of the QR code for the short link (e.g. `https://api.app.betterdata.co/qr?url=https://dub.sh/try`)."
           },
           "utm_source": {
             "type": "string",

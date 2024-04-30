@@ -42,7 +42,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -72,7 +72,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -105,7 +105,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -145,7 +145,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -175,7 +175,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -208,7 +208,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -242,7 +242,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -276,7 +276,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -329,7 +329,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: expect.arrayContaining(tags),
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();
@@ -365,7 +365,7 @@ describe.sequential("POST /links", async () => {
       projectId,
       workspaceId,
       shortLink: `https://${domain}/${link.key}`,
-      qrCode: `https://api.dub.co/qr?url=https://${domain}/${link.key}?qr=1`,
+      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${link.key}?qr=1`,
       tags: [],
     });
     expect(LinkSchema.strict().parse(link)).toBeTruthy();

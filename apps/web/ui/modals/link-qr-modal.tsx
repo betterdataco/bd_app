@@ -190,7 +190,7 @@ export function QRCodePicker({
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(
-                    `https://api.dub.co/qr?url=${linkConstructor({
+                    `https://api.app.betterdata.co/qr?url=${linkConstructor({
                       key: props.key,
                       domain: props.domain,
                       searchParams: {
