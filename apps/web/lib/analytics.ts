@@ -99,6 +99,7 @@ export const getAnalytics = async ({
   domain,
   endpoint,
   interval,
+  timeZone,
   ...rest
 }: z.infer<typeof getAnalyticsQuerySchema> & {
   workspaceId?: string;
@@ -137,7 +138,7 @@ export const getAnalytics = async ({
   }
 
   let url = new URL(
-    `${process.env.TINYBIRD_API_URL}/v0/pipes/${endpoint}.json`,
+    `${process.env.TINYBIRD_API_URL}/v0/pipes/${endpoint === "timeseries" ? "timeseries_new" : endpoint}.json`,
   );
   if (workspaceId) {
     url.searchParams.append("projectId", workspaceId);
@@ -161,6 +162,10 @@ export const getAnalytics = async ({
     );
 
     url.searchParams.append("granularity", intervalData[interval].granularity);
+  }
+
+  if (timeZone) {
+    url.searchParams.append("timeZone", timeZone);
   }
 
   VALID_ANALYTICS_FILTERS.forEach((filter) => {
