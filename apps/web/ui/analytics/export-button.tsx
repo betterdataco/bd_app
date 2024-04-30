@@ -42,7 +42,7 @@ export default function ExportButton() {
         <TooltipContent
           title="There's no data available for download. Try adjusting your filter or date range settings."
           cta="Learn more"
-          href="https://app.betterdata.co/help/article/how-to-export-analytics"
+          href="https://dub.co/help/article/how-to-export-analytics"
         />
       }
     >

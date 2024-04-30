@@ -46,6 +46,6 @@ export default async function AppMiddleware(req: NextRequest) {
 
   // otherwise, rewrite the path to /app
   return NextResponse.rewrite(
-    new URL(`/app.betterdata.co${fullPath === "/" ? "" : fullPath}`, req.url),
+    new URL(`/dub.co${fullPath === "/" ? "" : fullPath}`, req.url),
   );
 }

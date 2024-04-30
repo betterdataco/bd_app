@@ -2,7 +2,7 @@ import { describe, expect, test } from "vitest";
 import { env } from "../utils/env";
 import { IntegrationHarness } from "../utils/integration";
 
-const poweredBy = "app.betterdata.co - Link management for modern marketing teams";
+const poweredBy = "dub.co - Link management for modern marketing teams";
 const fetchOptions: RequestInit = {
   cache: "no-store",
   redirect: "manual",
@@ -17,7 +17,7 @@ describe.runIf(env.CI)("Link Redirects", async () => {
   test("root", async () => {
     const response = await fetch(h.baseUrl, fetchOptions);
 
-    expect(response.headers.get("location")).toBe("https://app.betterdata.co/");
+    expect(response.headers.get("location")).toBe("https://dub.co/");
     expect(response.headers.get("x-powered-by")).toBe(poweredBy);
     expect(response.status).toBe(301);
   });
@@ -73,7 +73,7 @@ describe.runIf(env.CI)("Link Redirects", async () => {
       fetchOptions,
     );
 
-    expect(response.headers.get("location")).toBe("https://app.betterdata.co/");
+    expect(response.headers.get("location")).toBe("https://dub.co/");
     expect(response.headers.get("x-powered-by")).toBe(poweredBy);
     expect(response.status).toBe(302);
   });

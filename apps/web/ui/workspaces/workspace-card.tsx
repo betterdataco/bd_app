@@ -66,7 +66,7 @@ export default function WorkspaceCard({
               migrated to a custom workspace.
             </p>
             <a
-              href="https://app.betterdata.co/changelog/dub-links-updates"
+              href="https://dub.co/changelog/dub-links-updates"
               target="_blank"
               className="mt-1 block text-gray-500 underline underline-offset-4 hover:text-gray-800"
             >

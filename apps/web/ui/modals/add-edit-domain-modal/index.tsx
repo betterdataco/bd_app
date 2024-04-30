@@ -287,7 +287,7 @@ function AddEditDomainModal({
                     <SimpleTooltipContent
                       title="Redirect users to a specific URL when any link under this domain has expired."
                       cta="Learn more."
-                      href="https://app.betterdata.co/help/article/link-expiration#setting-a-default-expiration-url-for-all-links-under-a-domain"
+                      href="https://dub.co/help/article/link-expiration#setting-a-default-expiration-url-for-all-links-under-a-domain"
                     />
                   }
                 />
@@ -348,7 +348,7 @@ function AddEditDomainModal({
                   name="placeholder"
                   id="placeholder"
                   className="block w-full rounded-md border-gray-300 text-gray-900 placeholder-gray-400 focus:border-gray-500 focus:outline-none focus:ring-gray-500 sm:text-sm"
-                  placeholder="https://app.betterdata.co/help/article/what-is-dub"
+                  placeholder="https://dub.co/help/article/what-is-dub"
                   value={placeholder}
                   onChange={(e) =>
                     setData({ ...data, placeholder: e.target.value })

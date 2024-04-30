@@ -2,9 +2,9 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "app.betterdata.co App",
-    short_name: "app.betterdata.co",
-    description: "app.betterdata.co – the open-source link management infrastructure.",
+    name: "dub.co App",
+    short_name: "dub.co",
+    description: "dub.co – the open-source link management infrastructure.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

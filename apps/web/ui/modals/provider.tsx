@@ -64,7 +64,7 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
     useImportRebrandlyModal();
 
   const [hashes, setHashes] = useCookies<SimpleLinkProps[]>("hashes__dub", [], {
-    domain: !!process.env.NEXT_PUBLIC_VERCEL_URL ? ".app.betterdata.co" : undefined,
+    domain: !!process.env.NEXT_PUBLIC_VERCEL_URL ? ".dub.co" : undefined,
   });
 
   const { id, error } = useWorkspace();

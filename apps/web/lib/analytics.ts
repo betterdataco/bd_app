@@ -55,7 +55,7 @@ export const intervalData = {
     granularity: "day",
   },
   all: {
-    // app.betterdata.co founding date
+    // dub.co founding date
     startDate: new Date("2022-09-22"),
     granularity: "month",
   },

@@ -54,20 +54,20 @@ export default function RegisterPage() {
       </div>
       <div className="hidden h-full flex-col justify-center space-y-12 overflow-hidden border-l border-gray-200 bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur md:flex">
         <a
-          href="https://app.betterdata.co/features/analytics"
+          href="https://dub.co/features/analytics"
           target="_blank"
           className="ml-12 h-1/2 w-[150%] rounded-xl border border-gray-200 bg-white/90 p-4 shadow-xl"
         >
           <BlurImage
-            alt="app.betterdata.co Analytics"
-            src="https://assets.app.betterdata.co/features/analytics.png"
+            alt="dub.co Analytics"
+            src="https://assets.dub.co/features/analytics.png"
             width={1735}
             height={990}
             className="h-full rounded-xl border border-gray-200 object-cover shadow-md"
           />
         </a>
         <a
-          href="https://app.betterdata.co/customers"
+          href="https://dub.co/customers"
           target="_blank"
           className="animate-infinite-scroll flex items-center space-x-4"
         >
@@ -75,7 +75,7 @@ export default function RegisterPage() {
             <BlurImage
               alt={`${logo} logo`}
               key={idx}
-              src={`https://app.betterdata.co/_static/clients/${logo}.svg`}
+              src={`https://dub.co/_static/clients/${logo}.svg`}
               width={520}
               height={182}
               className="h-12 grayscale transition-all hover:grayscale-0"

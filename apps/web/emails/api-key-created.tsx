@@ -33,7 +33,7 @@ export default function APIKeyCreated({
                 src={DUB_LOGO}
                 width="40"
                 height="40"
-                alt="app.betterdata.co"
+                alt="dub.co"
                 className="mx-auto my-0"
               />
             </Section>
@@ -41,14 +41,14 @@ export default function APIKeyCreated({
               New API Key Created
             </Heading>
             <Text className="text-sm leading-6 text-black">
-              You created a new API key for your app.betterdata.co account with the name{" "}
+              You created a new API key for your dub.co account with the name{" "}
               <strong>"{apiKeyName}"</strong> on{" "}
               {formatDate(new Date().toString())}.
             </Text>
             <Section className="my-8 text-center">
               <Link
                 className="rounded-full bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href="https://app.betterdata.co/settings/tokens"
+                href="https://dub.co/settings/tokens"
               >
                 View API Keys
               </Link>
@@ -56,7 +56,7 @@ export default function APIKeyCreated({
             <Text className="text-sm leading-6 text-black">
               If you did not create this API key, you can{" "}
               <Link
-                href="https://app.betterdata.co/settings/tokens"
+                href="https://dub.co/settings/tokens"
                 className="text-black underline"
               >
                 <strong>delete this key</strong>

@@ -1,6 +1,6 @@
 # `@dub/utils`
 
-`@dub/utils` is a library of utility functions that are used across app.betterdata.co's web applications.
+`@dub/utils` is a library of utility functions that are used across dub.co's web applications.
 
 ## Installation
 

@@ -38,7 +38,7 @@ module.exports = {
   images: {
     remotePatterns: [
       {
-        hostname: "assets.app.betterdata.co", // for Dub's static assets
+        hostname: "assets.dub.co", // for Dub's static assets
       },
       {
         hostname: "dubassets.com", // for Dub's user generated images
@@ -100,7 +100,7 @@ module.exports = {
             value: "app.dub.sh",
           },
         ],
-        destination: "https://app.betterdata.co",
+        destination: "https://dub.co",
         permanent: true,
         statusCode: 301,
       },
@@ -112,7 +112,7 @@ module.exports = {
             value: "app.dub.sh",
           },
         ],
-        destination: "https://app.betterdata.co/:path*",
+        destination: "https://dub.co/:path*",
         permanent: true,
         statusCode: 301,
       },
@@ -126,7 +126,7 @@ module.exports = {
                 value: "dub.sh",
               },
             ],
-            destination: `https://app.betterdata.co/${segment}`,
+            destination: `https://dub.co/${segment}`,
             permanent: true,
             statusCode: 301,
           },
@@ -138,7 +138,7 @@ module.exports = {
                 value: "dub.sh",
               },
             ],
-            destination: `https://app.betterdata.co/${segment}/:path*`,
+            destination: `https://dub.co/${segment}/:path*`,
             permanent: true,
             statusCode: 301,
           }
@@ -152,7 +152,7 @@ module.exports = {
             value: "dub.sh",
           },
         ],
-        destination: "https://app.betterdata.co/tools/metatags",
+        destination: "https://dub.co/tools/metatags",
         permanent: true,
         statusCode: 301,
       },
@@ -161,7 +161,7 @@ module.exports = {
         has: [
           {
             type: "host",
-            value: "app.betterdata.co",
+            value: "dub.co",
           },
         ],
         destination: "/tools/metatags",
@@ -176,7 +176,7 @@ module.exports = {
             value: "staging.dub.sh",
           },
         ],
-        destination: "https://app.betterdata.co",
+        destination: "https://dub.co",
         permanent: true,
         statusCode: 301,
       },
@@ -188,7 +188,7 @@ module.exports = {
             value: "preview.dub.sh",
           },
         ],
-        destination: "https://preview.app.betterdata.co",
+        destination: "https://preview.dub.co",
         permanent: true,
         statusCode: 301,
       },

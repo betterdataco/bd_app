@@ -43,7 +43,7 @@ export default function CloakingSection({
               <SimpleTooltipContent
                 title="Mask your destination URL so your users only see the short link in the browser address bar."
                 cta="Learn more."
-                href="https://app.betterdata.co/help/article/link-cloaking"
+                href="https://dub.co/help/article/link-cloaking"
               />
             }
           />
@@ -100,7 +100,7 @@ function IframeIndicator({ url, domain }: { url: string; domain: string }) {
             <p className="text-sm text-gray-600">
               It will be cloaked successfully.{" "}
               <a
-                href="https://app.betterdata.co/help/article/link-cloaking"
+                href="https://dub.co/help/article/link-cloaking"
                 target="_blank"
                 className="text-gray-500 underline underline-offset-2 hover:text-gray-700"
               >
@@ -119,7 +119,7 @@ function IframeIndicator({ url, domain }: { url: string; domain: string }) {
               </a>
               , but it might not work as expected.{" "}
               <a
-                href="https://app.betterdata.co/help/article/link-cloaking"
+                href="https://dub.co/help/article/link-cloaking"
                 target="_blank"
                 className="text-gray-500 underline underline-offset-2 hover:text-gray-700"
               >

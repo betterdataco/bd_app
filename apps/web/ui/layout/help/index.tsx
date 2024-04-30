@@ -20,7 +20,7 @@ export default function HelpPortal() {
 
 async function HelpPortalRSC() {
   const { popularHelpArticles, allHelpArticles } = await fetch(
-    "https://app.betterdata.co/api/content",
+    "https://dub.co/api/content",
   ).then((res) => res.json());
 
   return (

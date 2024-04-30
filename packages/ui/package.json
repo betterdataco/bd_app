@@ -1,6 +1,6 @@
 {
   "name": "@dub/ui",
-  "description": "UI components for app.betterdata.co",
+  "description": "UI components for dub.co",
   "version": "0.1.11",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -57,7 +57,7 @@
     "vaul": "^0.9.0"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
-  "homepage": "https://app.betterdata.co",
+  "homepage": "https://dub.co",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/steven-tey/dub.git"
@@ -67,7 +67,7 @@
   },
   "keywords": [
     "dub",
-    "app.betterdata.co",
+    "dub.co",
     "ui"
   ],
   "publishConfig": {

@@ -39,13 +39,13 @@ export const sendEmail = async ({
   return client.sendEmail({
     From:
       from || marketing
-        ? "steven@ship.app.betterdata.co"
+        ? "steven@ship.dub.co"
         : process.env.NEXT_PUBLIC_IS_DUB
-          ? "system@app.betterdata.co"
+          ? "system@dub.co"
           : `${process.env.NEXT_PUBLIC_APP_NAME} <system@${process.env.NEXT_PUBLIC_APP_DOMAIN}>`,
     To: email,
     ReplyTo: process.env.NEXT_PUBLIC_IS_DUB
-      ? "support@app.betterdata.co"
+      ? "support@dub.co"
       : `support@${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
     Subject: subject,
     ...(text && { TextBody: text }),

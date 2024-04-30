@@ -18,14 +18,14 @@ import { workspacesPaths } from "./workspaces";
 export const document = createDocument({
   openapi: "3.0.3",
   info: {
-    title: "app.betterdata.co API",
+    title: "dub.co API",
     description:
       "Dub is link management infrastructure for companies to create marketing campaigns, link sharing features, and referral programs.",
     version: "0.0.1",
     contact: {
-      name: "app.betterdata.co Support",
-      email: "support@app.betterdata.co",
-      url: "https://app.betterdata.co/api",
+      name: "dub.co Support",
+      email: "support@dub.co",
+      url: "https://dub.co/api",
     },
     license: {
       name: "AGPL-3.0 license",

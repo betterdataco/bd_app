@@ -1,4 +1,4 @@
-import AdminLinksClient from "../../app.betterdata.co/(dashboard)/[slug]/page-client";
+import AdminLinksClient from "../../dub.co/(dashboard)/[slug]/page-client";
 
 export default function AdminLinks() {
   return <AdminLinksClient />;

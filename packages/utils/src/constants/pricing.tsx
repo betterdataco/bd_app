@@ -23,7 +23,7 @@ const BUSINESS_PLAN_MODIFIER = ({
 }) => ({
   name,
   tagline: "For larger teams with increased usage",
-  link: "https://app.betterdata.co/help/article/business-plan",
+  link: "https://dub.co/help/article/business-plan",
   price: {
     monthly,
     yearly,
@@ -44,7 +44,7 @@ const BUSINESS_PLAN_MODIFIER = ({
   cta: {
     text: "Get started with Business",
     shortText: "Get started",
-    href: "https://app.betterdata.co/register",
+    href: "https://dub.co/register",
     color: "bg-sky-900 border-sky-900 hover:text-sky-900",
   },
   featureTitle: "Everything in Pro, plus:",
@@ -62,7 +62,7 @@ const BUSINESS_PLAN_MODIFIER = ({
       footnote: {
         title: "Organize your links with tags.",
         cta: "Learn more.",
-        href: "https://app.betterdata.co/help/article/how-to-use-tags",
+        href: "https://dub.co/help/article/how-to-use-tags",
       },
     },
     { text: "Elevated support", footnote: "Email and chat support." },
@@ -72,7 +72,7 @@ const BUSINESS_PLAN_MODIFIER = ({
         title:
           "Set custom QR code logos, password-protected links logos, and more.",
         cta: "Learn more.",
-        href: "https://app.betterdata.co/help/article/custom-qr-codes",
+        href: "https://dub.co/help/article/custom-qr-codes",
       },
     },
   ],
@@ -100,7 +100,7 @@ export const PLANS = [
     },
     cta: {
       text: "Start for free",
-      href: "https://app.betterdata.co/register",
+      href: "https://dub.co/register",
       color: "bg-black border-black hover:text-black",
     },
     featureTitle: "What's included:",
@@ -122,7 +122,7 @@ export const PLANS = [
         footnote: {
           title: "Programatically manage your links using our REST API.",
           cta: "Learn more.",
-          href: "https://app.betterdata.co/docs/api-reference/introduction",
+          href: "https://dub.co/docs/api-reference/introduction",
         },
       },
     ],
@@ -130,7 +130,7 @@ export const PLANS = [
   {
     name: "Pro",
     tagline: "For startups & small businesses",
-    link: "https://app.betterdata.co/help/article/pro-plan",
+    link: "https://dub.co/help/article/pro-plan",
     price: {
       monthly: 24,
       yearly: 19,
@@ -158,7 +158,7 @@ export const PLANS = [
     cta: {
       text: "Get started with Pro",
       shortText: "Get started",
-      href: "https://app.betterdata.co/register",
+      href: "https://dub.co/register",
       color: "bg-blue-500 border-blue-500 hover:text-blue-500",
     },
     featureTitle: "Everything in Free, plus:",
@@ -178,7 +178,7 @@ export const PLANS = [
           title:
             "Redirect vistors that land on the root of your domain (e.g. yourdomain.com) to a page of your choice.",
           cta: "Learn more.",
-          href: "https://app.betterdata.co/help/article/how-to-redirect-root-domain",
+          href: "https://dub.co/help/article/how-to-redirect-root-domain",
         },
       },
       {
@@ -259,7 +259,7 @@ export const PLANS = [
     name: "Enterprise",
     tagline:
       "Custom tailored plans for large enterprises. Whether you're running a SMS campaign with millions of short links or a large marketing campaign with billions of clicks, we've got you covered.",
-    link: "https://app.betterdata.co/enterprise",
+    link: "https://dub.co/enterprise",
     price: {
       monthly: null,
       yearly: null,

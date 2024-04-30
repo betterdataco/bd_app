@@ -15,7 +15,7 @@ export const GET = withWorkspace(async ({ headers, searchParams, link }) => {
       code: "bad_request",
       message:
         "You must provide a domain and key, or linkId or externalId to retrieve a link.",
-      docUrl: "https://app.betterdata.co/docs/api-reference/endpoint/retrieve-a-link",
+      docUrl: "https://dub.co/docs/api-reference/endpoint/retrieve-a-link",
     });
   }
 

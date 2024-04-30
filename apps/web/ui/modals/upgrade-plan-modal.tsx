@@ -109,7 +109,7 @@ function UpgradePlanModal({
           className="text-center text-sm text-gray-500"
           variants={STAGGER_CHILD_VARIANTS}
         >
-          Enjoy higher limits and extra features <br /> with app.betterdata.co{" "}
+          Enjoy higher limits and extra features <br /> with dub.co{" "}
           {selectedPlan.name}
         </motion.p>
       </motion.div>
@@ -297,7 +297,7 @@ function UpgradePlanModal({
           <div className="mt-2 flex items-center justify-center space-x-2">
             {currentPlan === "free" ? (
               <a
-                href="https://app.betterdata.co/pricing"
+                href="https://dub.co/pricing"
                 target="_blank"
                 className="text-center text-xs text-gray-500 underline-offset-4 transition-all hover:text-gray-800 hover:underline"
               >
@@ -352,7 +352,7 @@ function UpgradePlanModal({
               </Link>
             ) : (
               <a
-                href="https://app.betterdata.co/enterprise"
+                href="https://dub.co/enterprise"
                 target="_blank"
                 className="text-center text-xs text-gray-500 underline-offset-4 transition-all hover:text-gray-800 hover:underline"
               >
