@@ -1,15 +1,15 @@
 export const DEFAULT_REDIRECTS = {
   home: "https://dub.co",
   dub: "https://dub.co",
-  signin: "https://app.dub.co/login",
-  login: "https://app.dub.co/login",
-  register: "https://app.dub.co/register",
-  signup: "https://app.dub.co/register",
-  app: "https://app.dub.co",
-  dashboard: "https://app.dub.co",
-  links: "https://app.dub.co/links",
-  settings: "https://app.dub.co/settings",
-  welcome: "https://app.dub.co/welcome",
+  signin: "https://app.betterdata.co/login",
+  login: "https://app.betterdata.co/login",
+  register: "https://app.betterdata.co/register",
+  signup: "https://app.betterdata.co/register",
+  app: "https://app.betterdata.co",
+  dashboard: "https://app.betterdata.co",
+  links: "https://app.betterdata.co/links",
+  settings: "https://app.betterdata.co/settings",
+  welcome: "https://app.betterdata.co/welcome",
   discord: "https://twitter.com/dubdotco", // placeholder for now
 };
 

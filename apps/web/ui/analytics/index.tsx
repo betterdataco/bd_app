@@ -1,7 +1,7 @@
 "use client";
 /* 
   This Analytics component lives in 2 different places:
-  1. Workspace analytics page, e.g. app.dub.co/dub/analytics
+  1. Workspace analytics page, e.g. app.betterdata.co/dub/analytics
   2. Public stats page, e.g. dub.co/stats/github, stey.me/stats/weathergpt
 */
 
@@ -62,7 +62,7 @@ export default function Analytics({
   const tagId = searchParams?.get("tagId") ?? undefined;
 
   const { basePath, domain, baseApiPath } = useMemo(() => {
-    // Workspace analytics page, e.g. app.dub.co/dub/analytics?domain=dub.sh&key=github
+    // Workspace analytics page, e.g. app.betterdata.co/dub/analytics?domain=dub.sh&key=github
     if (admin) {
       return {
         basePath: `/analytics`,

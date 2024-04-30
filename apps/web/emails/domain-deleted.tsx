@@ -46,7 +46,7 @@ export default function DomainDeleted({
               Your domain <code className="text-purple-600">{domain}</code> for
               your Dub.co workspace{" "}
               <Link
-                href={`https://app.dub.co/${workspaceSlug}`}
+                href={`https://app.betterdata.co/${workspaceSlug}`}
                 className="font-medium text-blue-600 no-underline"
               >
                 {workspaceSlug}↗
@@ -61,7 +61,7 @@ export default function DomainDeleted({
             <Section className="my-8 text-center">
               <Link
                 className="rounded-full bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://app.dub.co/${workspaceSlug}/domains`}
+                href={`https://app.betterdata.co/${workspaceSlug}/domains`}
               >
                 Add a domain
               </Link>
