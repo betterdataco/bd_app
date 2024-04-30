@@ -1,1 +1,1 @@
-export { default } from "../../dub.co/(auth)/login/page";
+export { default } from "../../app.betterdata.co/(auth)/login/page";
