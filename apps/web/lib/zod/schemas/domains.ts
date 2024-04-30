@@ -24,8 +24,8 @@ export const DomainSchema = z.object({
     .describe(
       "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened.",
     )
-    .default("https://dub.co/help/article/what-is-dub")
-    .openapi({ example: "https://dub.co/help/article/what-is-dub" }),
+    .default("https://app.betterdata.co/help/article/what-is-dub")
+    .openapi({ example: "https://app.betterdata.co/help/article/what-is-dub" }),
   expiredUrl: z
     .string()
     .nullable()
@@ -81,11 +81,11 @@ export const addDomainBodySchema = z.object({
     .openapi({ example: false }),
   placeholder: parseUrlSchema
     .nullish()
-    .default("https://dub.co/help/article/what-is-dub")
+    .default("https://app.betterdata.co/help/article/what-is-dub")
     .describe(
       "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened.",
     )
-    .openapi({ example: "https://dub.co/help/article/what-is-dub" }),
+    .openapi({ example: "https://app.betterdata.co/help/article/what-is-dub" }),
 });
 
 export const updateDomainBodySchema = addDomainBodySchema.partial();

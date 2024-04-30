@@ -23,7 +23,7 @@ export default function CreateWorkspaceButton() {
               href={
                 freeWorkspaces
                   ? `/${freeWorkspaces[0].slug}/settings/billing?upgrade=pro`
-                  : "https://dub.co/pricing"
+                  : "https://app.betterdata.co/pricing"
               }
             />
           ) : undefined

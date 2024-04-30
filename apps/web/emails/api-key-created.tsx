@@ -33,7 +33,7 @@ export default function APIKeyCreated({
                 src={DUB_LOGO}
                 width="40"
                 height="40"
-                alt="Dub.co"
+                alt="app.betterdata.co"
                 className="mx-auto my-0"
               />
             </Section>
@@ -41,7 +41,7 @@ export default function APIKeyCreated({
               New API Key Created
             </Heading>
             <Text className="text-sm leading-6 text-black">
-              You created a new API key for your Dub.co account with the name{" "}
+              You created a new API key for your app.betterdata.co account with the name{" "}
               <strong>"{apiKeyName}"</strong> on{" "}
               {formatDate(new Date().toString())}.
             </Text>

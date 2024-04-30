@@ -59,10 +59,10 @@ export default function LinksLimitAlert({
               />
             </Section>
             <Heading className="mx-0 my-7 p-0 text-center text-xl font-semibold text-black">
-              Dub.co Links Limit Alert
+              app.betterdata.co Links Limit Alert
             </Heading>
             <Text className="text-sm leading-6 text-black">
-              Your Dub.co workspace,{" "}
+              Your app.betterdata.co workspace,{" "}
               <Link
                 href={`https://app.betterdata.co/${slug}`}
                 className="text-black underline"

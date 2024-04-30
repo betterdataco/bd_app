@@ -1,6 +1,6 @@
 export const DEFAULT_REDIRECTS = {
-  home: "https://dub.co",
-  dub: "https://dub.co",
+  home: "https://app.betterdata.co",
+  dub: "https://app.betterdata.co",
   signin: "https://app.betterdata.co/login",
   login: "https://app.betterdata.co/login",
   register: "https://app.betterdata.co/register",
@@ -15,6 +15,6 @@ export const DEFAULT_REDIRECTS = {
 
 export const DUB_HEADERS = {
   headers: {
-    "x-powered-by": "Dub.co - Link management for modern marketing teams",
+    "x-powered-by": "app.betterdata.co - Link management for modern marketing teams",
   },
 };

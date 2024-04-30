@@ -40,7 +40,7 @@ export default function UserDropdown() {
               </p>
             </Link>
             <Link
-              href="https://dub.co/help"
+              href="https://app.betterdata.co/help"
               onClick={() => setOpenPopover(false)}
               target="_blank"
               className="w-full rounded-md p-2 text-sm transition-all duration-75 hover:bg-gray-100 active:bg-gray-200"
@@ -61,7 +61,7 @@ export default function UserDropdown() {
               />
             </Link>
             <Link
-              href="https://dub.co/changelog"
+              href="https://app.betterdata.co/changelog"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => {

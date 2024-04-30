@@ -38,7 +38,7 @@ export default function ClicksExceeded({
     <Html>
       <Head />
       <Preview>
-        Your Dub.co workspace, {name || ""} has exceeded the{" "}
+        Your app.betterdata.co workspace, {name || ""} has exceeded the{" "}
         {capitalize(plan) || ""} Plan limit of {nFormatter(usageLimit)} link
         clicks/month.
       </Preview>
@@ -58,7 +58,7 @@ export default function ClicksExceeded({
               Clicks Limit Exceeded
             </Heading>
             <Text className="text-sm leading-6 text-black">
-              Your Dub.co workspace,{" "}
+              Your app.betterdata.co workspace,{" "}
               <Link
                 href={`https://app.betterdata.co/${slug}`}
                 className="text-black underline"

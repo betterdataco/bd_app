@@ -334,7 +334,7 @@ export const authOptions: NextAuthOptions = {
           await Promise.allSettled([
             subscribe({ email, name: user.name || undefined }),
             sendEmail({
-              subject: "Welcome to Dub.co!",
+              subject: "Welcome to app.betterdata.co!",
               email,
               react: WelcomeEmail({
                 email,

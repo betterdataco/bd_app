@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Dub.co API",
+    "title": "app.betterdata.co API",
     "description": "Dub is link management infrastructure for companies to create marketing campaigns, link sharing features, and referral programs.",
     "version": "0.0.1",
     "contact": {
-      "name": "Dub.co Support",
-      "email": "support@dub.co",
-      "url": "https://dub.co/api"
+      "name": "app.betterdata.co Support",
+      "email": "support@app.betterdata.co",
+      "url": "https://app.betterdata.co/api"
     },
     "license": {
       "name": "AGPL-3.0 license",
@@ -179,17 +179,17 @@
                   "title": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "description": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "image": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "rewrite": {
                     "type": "boolean",
@@ -1652,17 +1652,17 @@
                   "title": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "description": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "image": {
                     "type": "string",
                     "nullable": true,
-                    "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                    "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                   },
                   "rewrite": {
                     "type": "boolean",
@@ -2719,17 +2719,17 @@
                     "title": {
                       "type": "string",
                       "nullable": true,
-                      "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                      "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                     },
                     "description": {
                       "type": "string",
                       "nullable": true,
-                      "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                      "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                     },
                     "image": {
                       "type": "string",
                       "nullable": true,
-                      "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+                      "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
                     },
                     "rewrite": {
                       "type": "boolean",
@@ -3575,12 +3575,12 @@
           {
             "in": "query",
             "name": "url",
-            "description": "The URL to generate a QR code for. Defaults to `https://dub.co` if not provided.",
+            "description": "The URL to generate a QR code for. Defaults to `https://app.betterdata.co` if not provided.",
             "schema": {
               "type": "string",
               "format": "uri",
-              "default": "https://dub.co",
-              "description": "The URL to generate a QR code for. Defaults to `https://dub.co` if not provided."
+              "default": "https://app.betterdata.co",
+              "description": "The URL to generate a QR code for. Defaults to `https://app.betterdata.co` if not provided."
             }
           },
           {
@@ -9369,9 +9369,9 @@
                   "placeholder": {
                     "type": "string",
                     "nullable": true,
-                    "default": "https://dub.co/help/article/what-is-dub",
+                    "default": "https://app.betterdata.co/help/article/what-is-dub",
                     "description": "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened.",
-                    "example": "https://dub.co/help/article/what-is-dub"
+                    "example": "https://app.betterdata.co/help/article/what-is-dub"
                   }
                 },
                 "required": [
@@ -9593,9 +9593,9 @@
                   "placeholder": {
                     "type": "string",
                     "nullable": true,
-                    "default": "https://dub.co/help/article/what-is-dub",
+                    "default": "https://app.betterdata.co/help/article/what-is-dub",
                     "description": "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened.",
-                    "example": "https://dub.co/help/article/what-is-dub"
+                    "example": "https://app.betterdata.co/help/article/what-is-dub"
                   }
                 }
               }
@@ -9954,7 +9954,7 @@
             "description": "The URL to retrieve metatags for.",
             "schema": {
               "type": "string",
-              "example": "https://dub.co",
+              "example": "https://app.betterdata.co",
               "description": "The URL to retrieve metatags for."
             },
             "required": true
@@ -9972,19 +9972,19 @@
                       "type": "string",
                       "nullable": true,
                       "description": "The meta title tag for the URL.",
-                      "example": "Dub.co - Link Management for Modern Marketing Teams"
+                      "example": "app.betterdata.co - Link Management for Modern Marketing Teams"
                     },
                     "description": {
                       "type": "string",
                       "nullable": true,
                       "description": "The meta description tag for the URL.",
-                      "example": "Dub.co is the open-source link management infrastructure ..."
+                      "example": "app.betterdata.co is the open-source link management infrastructure ..."
                     },
                     "image": {
                       "type": "string",
                       "nullable": true,
                       "description": "The OpenGraph image for the URL.",
-                      "example": "https://assets.dub.co/thumbnail.jpg"
+                      "example": "https://assets.app.betterdata.co/thumbnail.jpg"
                     }
                   },
                   "required": [
@@ -10060,17 +10060,17 @@
           "title": {
             "type": "string",
             "nullable": true,
-            "description": "The title of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+            "description": "The title of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
           },
           "description": {
             "type": "string",
             "nullable": true,
-            "description": "The description of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+            "description": "The description of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
           },
           "image": {
             "type": "string",
             "nullable": true,
-            "description": "The image of the short link generated via `api.dub.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
+            "description": "The image of the short link generated via `api.app.betterdata.co/metatags`. Will be used for Custom Social Media Cards if `proxy` is true."
           },
           "rewrite": {
             "type": "boolean",
@@ -11127,7 +11127,7 @@
           "qrCode": {
             "type": "string",
             "format": "uri",
-            "description": "The full URL of the QR code for the short link (e.g. `https://api.dub.co/qr?url=https://dub.sh/try`)."
+            "description": "The full URL of the QR code for the short link (e.g. `https://api.app.betterdata.co/qr?url=https://dub.sh/try`)."
           },
           "utm_source": {
             "type": "string",
@@ -11428,8 +11428,8 @@
           "placeholder": {
             "type": "string",
             "description": "Provide context to your teammates in the link creation modal by showing them an example of a link to be shortened.",
-            "default": "https://dub.co/help/article/what-is-dub",
-            "example": "https://dub.co/help/article/what-is-dub"
+            "default": "https://app.betterdata.co/help/article/what-is-dub",
+            "example": "https://app.betterdata.co/help/article/what-is-dub"
           },
           "expiredUrl": {
             "type": "string",
@@ -11498,7 +11498,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#bad_request"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#bad_request"
                     }
                   },
                   "required": [
@@ -11541,7 +11541,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#unauthorized"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#unauthorized"
                     }
                   },
                   "required": [
@@ -11584,7 +11584,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#forbidden"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#forbidden"
                     }
                   },
                   "required": [
@@ -11627,7 +11627,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#not_found"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#not_found"
                     }
                   },
                   "required": [
@@ -11670,7 +11670,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#conflict"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#conflict"
                     }
                   },
                   "required": [
@@ -11713,7 +11713,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#invite_expired"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#invite_expired"
                     }
                   },
                   "required": [
@@ -11756,7 +11756,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#unprocessable_entity"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#unprocessable_entity"
                     }
                   },
                   "required": [
@@ -11799,7 +11799,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#rate_limit_exceeded"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#rate_limit_exceeded"
                     }
                   },
                   "required": [
@@ -11842,7 +11842,7 @@
                     "doc_url": {
                       "type": "string",
                       "description": "A link to our documentation with more details about this error code",
-                      "example": "https://dub.co/docs/api-reference/errors#internal_server_error"
+                      "example": "https://app.betterdata.co/docs/api-reference/errors#internal_server_error"
                     }
                   },
                   "required": [

@@ -2,7 +2,7 @@
 /* 
   This Analytics component lives in 2 different places:
   1. Workspace analytics page, e.g. app.betterdata.co/dub/analytics
-  2. Public stats page, e.g. dub.co/stats/github, stey.me/stats/weathergpt
+  2. Public stats page, e.g. app.betterdata.co/stats/github, stey.me/stats/weathergpt
 */
 
 import { VALID_ANALYTICS_FILTERS } from "@/lib/analytics";
@@ -76,7 +76,7 @@ export default function Analytics({
         domain: domainSlug,
       };
     } else {
-      // Public stats page, e.g. dub.co/stats/github, stey.me/stats/weathergpt
+      // Public stats page, e.g. app.betterdata.co/stats/github, stey.me/stats/weathergpt
       return {
         basePath: `/stats/${key}`,
         baseApiPath: "/api/analytics/edge",

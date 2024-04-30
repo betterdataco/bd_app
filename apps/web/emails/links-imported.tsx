@@ -88,7 +88,7 @@ export default function LinksImported({
               <strong>
                 imported {Intl.NumberFormat("en-us").format(count)} links
               </strong>{" "}
-              from {provider} into your Dub.co workspace,{" "}
+              from {provider} into your app.betterdata.co workspace,{" "}
               <Link
                 href={`https://app.betterdata.co/${workspaceSlug}`}
                 className="font-medium text-blue-600 no-underline"
@@ -142,7 +142,7 @@ export default function LinksImported({
             <Text className="text-sm leading-6 text-black">
               If you haven't already{" "}
               <Link
-                href="https://dub.co/help/article/how-to-add-custom-domain#step-2-configure-your-domain"
+                href="https://app.betterdata.co/help/article/how-to-add-custom-domain#step-2-configure-your-domain"
                 className="font-medium text-blue-600 no-underline"
               >
                 configured your domain{domains.length > 1 ? "s" : ""}
