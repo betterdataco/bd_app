@@ -10,8 +10,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import EmailProvider from "next-auth/providers/email";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import AppleProvider from "next-auth/providers/apple";
-import TwitterProvider from "next-auth/providers/twitter";
+//import AppleProvider from "next-auth/providers/apple";
+//import TwitterProvider from "next-auth/providers/twitter";
 import { subscribe } from "../flodesk";
 import { isStored, storage } from "../storage";
 
@@ -38,14 +38,14 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
       allowDangerousEmailAccountLinking: true,
     }),
-    AppleProvider({
-      clientId: process.env.APPLE_ID,
-      clientSecret: process.env.APPLE_SECRET
-    }),
-    TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID,
-      clientSecret: process.env.TWITTER_CLIENT_SECRET
-    }),
+    //AppleProvider({
+    //  clientId: process.env.APPLE_ID,
+    //  clientSecret: process.env.APPLE_SECRET
+    //}),
+    //TwitterProvider({
+    //  clientId: process.env.TWITTER_CLIENT_ID,
+    // clientSecret: process.env.TWITTER_CLIENT_SECRET
+    //}),
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
