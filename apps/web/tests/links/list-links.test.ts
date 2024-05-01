@@ -37,7 +37,7 @@ test("GET /links", async (ctx) => {
     workspaceId,
     tags: [],
     shortLink: `https://${domain}/${firstLink.key}`,
-    qrCode: `https://api.betterdata.co/qr?url=https://${domain}/${firstLink.key}?qr=1`,
+    qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${firstLink.key}?qr=1`,
   });
 
   await h.deleteLink(firstLink.id);

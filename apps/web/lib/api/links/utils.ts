@@ -143,7 +143,7 @@ export const transformLink = (link: LinkWithTags) => {
     shortLink,
     tagId: tags?.[0]?.id ?? null, // backwards compatibility
     tags,
-    qrCode: `https://api.betterdata.co/qr?url=${qrLink}`,
+    qrCode: `https://api.app.betterdata.co/qr?url=${qrLink}`,
     workspaceId: `ws_${link.projectId}`,
   };
 };
