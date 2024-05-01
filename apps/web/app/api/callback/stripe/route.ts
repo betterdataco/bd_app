@@ -254,7 +254,7 @@ export const POST = async (req: Request) => {
           workspaceUsers.map((email) =>
             sendEmail({
               email,
-              from: "steven@dub.co",
+              from: "hello@betterdata.co",
               subject: "Feedback on your dub.co experience?",
               text: "Hey!\n\nI noticed you recently cancelled your dub.co subscription – we're sorry to see you go!\n\nI'd love to hear your feedback on your experience with Dub – what could we have done better?\n\nThanks!\n\nSteven Tey\nFounder, dub.co",
             }),
