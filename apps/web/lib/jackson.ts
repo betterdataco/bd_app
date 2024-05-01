@@ -12,7 +12,7 @@ export const samlAudience = "https://saml.dub.co";
 const opts: JacksonOption = {
   externalUrl:
     process.env.NODE_ENV === "production"
-      ? "https://api.app.betterdata.co"
+      ? "https://api.betterdata.co"
       : `${process.env.NEXTAUTH_URL}`,
   samlPath:
     process.env.NODE_ENV === "production"
