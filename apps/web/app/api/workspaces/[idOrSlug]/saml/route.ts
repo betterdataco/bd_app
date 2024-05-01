@@ -37,7 +37,7 @@ export const GET = withWorkspace(async ({ workspace }) => {
     issuer: samlAudience,
     acs:
       process.env.NODE_ENV === "production"
-        ? "https://api.app.betterdata.co/auth/saml/callback"
+        ? "https://api.betterdata.co/auth/saml/callback"
         : `${APP_DOMAIN_WITH_NGROK}/api/auth/saml/callback`,
   };
 

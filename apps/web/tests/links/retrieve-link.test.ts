@@ -100,7 +100,7 @@ describe.sequential("GET /links/info", async () => {
       workspaceId,
       userId: user.id,
       shortLink: `https://${domain}/${key}`,
-      qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${key}?qr=1`,
+      qrCode: `https://api.betterdata.co/qr?url=https://${domain}/${key}?qr=1`,
       tags: [],
     });
   });

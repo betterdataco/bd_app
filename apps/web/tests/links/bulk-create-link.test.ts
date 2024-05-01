@@ -38,7 +38,7 @@ test("POST /links/bulk", async (ctx) => {
     projectId,
     workspaceId,
     shortLink: `https://${domain}/${firstLink?.key}`,
-    qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${firstLink?.key}?qr=1`,
+    qrCode: `https://api.betterdata.co/qr?url=https://${domain}/${firstLink?.key}?qr=1`,
     tags: [],
   });
   expect(secondLink).toStrictEqual({
@@ -48,7 +48,7 @@ test("POST /links/bulk", async (ctx) => {
     projectId,
     workspaceId,
     shortLink: `https://${domain}/${secondLink?.key}`,
-    qrCode: `https://api.app.betterdata.co/qr?url=https://${domain}/${secondLink?.key}?qr=1`,
+    qrCode: `https://api.betterdata.co/qr?url=https://${domain}/${secondLink?.key}?qr=1`,
     tags: [],
   });
   expect(z.array(LinkSchema.strict()).parse(links)).toBeTruthy();
