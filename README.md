@@ -18,8 +18,8 @@
 </p>
 
 <p align="center">
-  <a href="https://twitter.com/dubdotco">
-    <img src="https://img.shields.io/twitter/follow/dubdotco?style=flat&label=%40dubdotco&logo=twitter&color=0bf&logoColor=fff" alt="Twitter" />
+  <a href="https://twitter.com/betterdatadotco">
+    <img src="https://img.shields.io/twitter/follow/betterdatadotco?style=flat&label=%40betterdatadotco&logo=twitter&color=0bf&logoColor=fff" alt="Twitter" />
   </a>
   <a href="https://news.ycombinator.com/item?id=32939407"><img src="https://img.shields.io/badge/Hacker%20News-255-%23FF6600" alt="Hacker News"></a>
   <a href="https://github.com/dubinc/dub/blob/main/LICENSE">

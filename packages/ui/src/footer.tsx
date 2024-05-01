@@ -75,7 +75,7 @@ export function Footer() {
             </p>
             <div className="flex items-center space-x-3">
               <a
-                href="https://twitter.com/dubdotco"
+                href="https://twitter.com/betterdatadotco"
                 target="_blank"
                 rel="noreferrer"
                 className="group rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100"
@@ -102,7 +102,7 @@ export function Footer() {
                 <LinkedIn className="h-4 w-4 text-gray-600 transition-colors group-hover:text-[#0077b5]" />
               </a>
               <a
-                href="https://www.youtube.com/@dubdotco"
+                href="https://www.youtube.com/@betterdatadotco"
                 target="_blank"
                 rel="noreferrer"
                 className="group rounded-full border border-gray-200 p-2 transition-colors hover:bg-gray-100"
