@@ -8,7 +8,7 @@ export const isIframeable = async ({
 }) => {
   const res = await fetch(url, {
     headers: {
-      "User-Agent": "dub.co Bot",
+      "User-Agent": "betterdata.co Bot",
     },
   });
 

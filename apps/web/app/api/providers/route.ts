@@ -74,7 +74,7 @@ export async function GET(req: NextRequest) {
           provider: "short",
         });
       }
-      if (headers.poweredBy?.includes("dub.co")) {
+      if (headers.poweredBy?.includes("betterdata.co")) {
         return NextResponse.json({
           provider: "dub",
         });

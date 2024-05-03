@@ -44,9 +44,9 @@ export default function DomainDeleted({
             </Heading>
             <Text className="text-sm leading-6 text-black">
               Your domain <code className="text-purple-600">{domain}</code> for
-              your dub.co workspace{" "}
+              your betterdata.co workspace{" "}
               <Link
-                href={`https://dub.co/${workspaceSlug}`}
+                href={`https://betterdata.co/${workspaceSlug}`}
                 className="font-medium text-blue-600 no-underline"
               >
                 {workspaceSlug}↗
@@ -56,18 +56,18 @@ export default function DomainDeleted({
             </Text>
             <Text className="text-sm leading-6 text-black">
               If you would like to restore the domain, you can easily create it
-              again on dub.co with the link below.
+              again on betterdata.co with the link below.
             </Text>
             <Section className="my-8 text-center">
               <Link
                 className="rounded-full bg-black px-6 py-3 text-center text-[12px] font-semibold text-white no-underline"
-                href={`https://dub.co/${workspaceSlug}/domains`}
+                href={`https://betterdata.co/${workspaceSlug}/domains`}
               >
                 Add a domain
               </Link>
             </Section>
             <Text className="text-sm leading-6 text-black">
-              If you did not want to keep using this domain on dub.co anyway,
+              If you did not want to keep using this domain on betterdata.co anyway,
               you can simply ignore this email.
             </Text>
             <Footer email={email} />

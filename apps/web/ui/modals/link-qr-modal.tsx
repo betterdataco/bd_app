@@ -91,7 +91,7 @@ export function QRCodePicker({
       ...(showLogo && {
         imageSettings: {
           src:
-            logo && plan !== "free" ? logo : "https://dub.co/_static/logo.svg",
+            logo && plan !== "free" ? logo : "https://betterdata.co/_static/logo.svg",
           height: 256,
           width: 256,
           excavate: true,
@@ -237,7 +237,7 @@ export function QRCodePicker({
                           src:
                             logo && plan !== "free"
                               ? logo
-                              : "https://dub.co/_static/logo.svg",
+                              : "https://betterdata.co/_static/logo.svg",
                         },
                       }),
                     }),
@@ -336,7 +336,7 @@ function AdvancedSettings({
                     <SimpleTooltipContent
                       title=""
                       cta="How to update my QR Code logo?"
-                      href="https://dub.co/help/article/custom-qr-codes"
+                      href="https://betterdata.co/help/article/custom-qr-codes"
                     />
                   }
                 />
@@ -373,7 +373,7 @@ function AdvancedSettings({
                             });
                           },
                         }
-                      : { href: "https://dub.co/pricing" })}
+                      : { href: "https://betterdata.co/pricing" })}
                   />
                 }
               >

@@ -198,7 +198,7 @@ export default function DomainCard({ props }: { props: DomainProps }) {
                           <SimpleTooltipContent
                             title="You cannot transfer your workspace's primary domain. Set another domain as primary to transfer this domain."
                             cta="Learn more."
-                            href="https://dub.co/help/article/how-to-set-primary-domain"
+                            href="https://betterdata.co/help/article/how-to-set-primary-domain"
                           />
                         ),
                       })}

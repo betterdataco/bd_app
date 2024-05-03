@@ -22,7 +22,7 @@ export default function Preview({
   const { title, description, image, url, password } = data;
   const [debouncedUrl] = useDebounce(url, 500);
   const hostname = useMemo(() => {
-    if (password) return "dub.co";
+    if (password) return "betterdata.co";
     return getDomainWithoutWWW(debouncedUrl);
   }, [password, debouncedUrl]);
 

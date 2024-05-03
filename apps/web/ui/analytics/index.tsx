@@ -1,8 +1,8 @@
 "use client";
 /* 
   This Analytics component lives in 2 different places:
-  1. Workspace analytics page, e.g. dub.co/dub/analytics
-  2. Public stats page, e.g. dub.co/stats/github, stey.me/stats/weathergpt
+  1. Workspace analytics page, e.g. betterdata.co/dub/analytics
+  2. Public stats page, e.g. betterdata.co/stats/github, stey.me/stats/weathergpt
 */
 
 import { VALID_ANALYTICS_FILTERS } from "@/lib/analytics";
@@ -62,7 +62,7 @@ export default function Analytics({
   const tagId = searchParams?.get("tagId") ?? undefined;
 
   const { basePath, domain, baseApiPath } = useMemo(() => {
-    // Workspace analytics page, e.g. dub.co/dub/analytics?domain=tagd.sh&key=github
+    // Workspace analytics page, e.g. betterdata.co/dub/analytics?domain=tagd.sh&key=github
     if (admin) {
       return {
         basePath: `/analytics`,
@@ -76,7 +76,7 @@ export default function Analytics({
         domain: domainSlug,
       };
     } else {
-      // Public stats page, e.g. dub.co/stats/github, stey.me/stats/weathergpt
+      // Public stats page, e.g. betterdata.co/stats/github, stey.me/stats/weathergpt
       return {
         basePath: `/stats/${key}`,
         baseApiPath: "/api/analytics/edge",

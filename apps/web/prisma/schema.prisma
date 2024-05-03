@@ -175,7 +175,7 @@ model Domain {
   id          String   @id @default(cuid())
   slug        String   @unique
   verified    Boolean  @default(false)
-  placeholder String   @default("https://dub.co/help/article/what-is-dub")
+  placeholder String   @default("https://betterdata.co/help/article/what-is-dub")
   description String?
   primary     Boolean  @default(false)
   archived    Boolean  @default(false)
@@ -214,7 +214,7 @@ model Link {
   externalId String?
 
   proxy       Boolean @default(false) // Proxy to use custom OG tags (stored on redis) – if false, will use OG tags from target url
-  title       String? // OG title for the link (e.g. dub.co - Open-Source Link Management Infrastructure)
+  title       String? // OG title for the link (e.g. betterdata.co - Open-Source Link Management Infrastructure)
   description String? @db.VarChar(280) // OG description for the link (e.g. An open-source link management tool for modern marketing teams to create, share, and track short links.)
   image       String? @db.LongText // OG image for the link (e.g. https://d.to/og)
 

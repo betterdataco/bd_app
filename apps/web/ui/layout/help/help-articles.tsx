@@ -79,7 +79,7 @@ export function HelpArticles({
           <div />
         )}
         <a
-          href="https://dub.co/help"
+          href="https://betterdata.co/help"
           target="_blank"
           className="flex items-center space-x-2 hover:underline"
         >
@@ -123,7 +123,7 @@ const CommandResults = () => {
           query: search,
           slug,
         });
-        window.open(`https://dub.co/help/article/${slug}`);
+        window.open(`https://betterdata.co/help/article/${slug}`);
       }}
       className="group flex cursor-pointer items-center justify-between space-x-2 rounded-md px-4 py-2 hover:bg-gray-100 active:bg-gray-200 aria-selected:bg-gray-100"
     >

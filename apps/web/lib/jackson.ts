@@ -7,7 +7,7 @@ import type {
 } from "@boxyhq/saml-jackson";
 import jackson from "@boxyhq/saml-jackson";
 
-export const samlAudience = "https://saml.dub.co";
+export const samlAudience = "https://saml.betterdata.co";
 
 const opts: JacksonOption = {
   externalUrl:

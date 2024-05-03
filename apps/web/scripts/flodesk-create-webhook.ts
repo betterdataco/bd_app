@@ -10,7 +10,7 @@ async function main() {
     // body: JSON.stringify({
     //   name: "Unsubscribed Webhook",
     //   post_url:
-    //     "https://dub.co/api/callback/flodesk?token=9155f7737cd484b668fc4d4ba0532eef",
+    //     "https://betterdata.co/api/callback/flodesk?token=9155f7737cd484b668fc4d4ba0532eef",
     //   events: ["subscriber.unsubscribed"],
     // }),
     // }).then((res) => ({

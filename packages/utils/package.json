@@ -1,6 +1,6 @@
 {
   "name": "@dub/utils",
-  "description": "Utility functions and constants for dub.co",
+  "description": "Utility functions and constants for betterdata.co",
   "version": "0.0.48",
   "sideEffects": false,
   "main": "./dist/index.mjs",
@@ -40,7 +40,7 @@
     "tailwind-merge": "^2.2.1"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
-  "homepage": "https://dub.co",
+  "homepage": "https://betterdata.co",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/steven-tey/dub.git"
@@ -50,7 +50,7 @@
   },
   "keywords": [
     "dub",
-    "dub.co",
+    "betterdata.co",
     "utils",
     "utility",
     "functions"

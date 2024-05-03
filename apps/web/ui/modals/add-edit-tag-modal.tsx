@@ -88,7 +88,7 @@ function AddEditTagModal({
           <p className="text-sm text-gray-500">
             Use tags to organize your links.{" "}
             <a
-              href="https://dub.co/help/article/how-to-use-tags#what-is-a-tag"
+              href="https://betterdata.co/help/article/how-to-use-tags#what-is-a-tag"
               target="_blank"
               rel="noopener noreferrer"
               className="underline underline-offset-4 hover:text-gray-800"

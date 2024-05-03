@@ -31,14 +31,14 @@ export default function Layout({ children }: { children: ReactNode }) {
               </div>
               <div className="flex items-center space-x-6">
                 <a
-                  href="https://dub.co/changelog"
+                  href="https://betterdata.co/changelog"
                   className="hidden text-sm text-gray-500 transition-colors hover:text-gray-700 sm:block"
                   target="_blank"
                 >
                   Changelog
                 </a>
                 <a
-                  href="https://dub.co/help"
+                  href="https://betterdata.co/help"
                   className="hidden text-sm text-gray-500 transition-colors hover:text-gray-700 sm:block"
                   target="_blank"
                 >

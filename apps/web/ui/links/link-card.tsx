@@ -432,7 +432,7 @@ export default function LinkCard({
                     <SimpleTooltipContent
                       title="This link is cloaked. Your users will only see the short link in the browser address bar."
                       cta="Learn more."
-                      href="https://dub.co/help/article/link-cloaking"
+                      href="https://betterdata.co/help/article/link-cloaking"
                     />
                   }
                 >
@@ -445,7 +445,7 @@ export default function LinkCard({
                     <SimpleTooltipContent
                       title="This link is password-protected."
                       cta="Learn more."
-                      href="https://dub.co/help/article/password-protected-links"
+                      href="https://betterdata.co/help/article/password-protected-links"
                     />
                   }
                 >
@@ -539,7 +539,7 @@ export default function LinkCard({
                       <SimpleTooltipContent
                         title="Since this is a custom domain link, you can only transfer it to another workspace if you transfer the domain as well."
                         cta="Learn more."
-                        href="https://dub.co/help/article/how-to-transfer-domains"
+                        href="https://betterdata.co/help/article/how-to-transfer-domains"
                       />
                     ),
                   })}

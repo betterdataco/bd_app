@@ -38,7 +38,7 @@ module.exports = {
   images: {
     remotePatterns: [
       {
-        hostname: "assets.dub.co", // for Dub's static assets
+        hostname: "assets.betterdata.co", // for Dub's static assets
       },
       {
         hostname: "dubassets.com", // for Dub's user generated images
@@ -126,7 +126,7 @@ module.exports = {
                 value: "tagd.sh",
               },
             ],
-            destination: `https://dub.co/${segment}`,
+            destination: `https://betterdata.co/${segment}`,
             permanent: true,
             statusCode: 301,
           },
@@ -138,7 +138,7 @@ module.exports = {
                 value: "tagd.sh",
               },
             ],
-            destination: `https://dub.co/${segment}/:path*`,
+            destination: `https://betterdata.co/${segment}/:path*`,
             permanent: true,
             statusCode: 301,
           }
@@ -152,7 +152,7 @@ module.exports = {
             value: "tagd.sh",
           },
         ],
-        destination: "https://dub.co/tools/metatags",
+        destination: "https://betterdata.co/tools/metatags",
         permanent: true,
         statusCode: 301,
       },
@@ -161,7 +161,7 @@ module.exports = {
         has: [
           {
             type: "host",
-            value: "dub.co",
+            value: "betterdata.co",
           },
         ],
         destination: "/tools/metatags",
@@ -176,7 +176,7 @@ module.exports = {
             value: "staging.tagd.sh",
           },
         ],
-        destination: "https://dub.co",
+        destination: "https://betterdata.co",
         permanent: true,
         statusCode: 301,
       },
@@ -188,7 +188,7 @@ module.exports = {
             value: "preview.tagd.sh",
           },
         ],
-        destination: "https://preview.dub.co",
+        destination: "https://preview.betterdata.co",
         permanent: true,
         statusCode: 301,
       },

@@ -501,7 +501,7 @@ function AddEditLinkModal({
                     placeholder={
                       domains?.find(({ slug }) => slug === domain)
                         ?.placeholder ||
-                      "https://dub.co/help/article/what-is-dub"
+                      "https://betterdata.co/help/article/what-is-dub"
                     }
                     value={url}
                     autoFocus={!key && !isMobile}

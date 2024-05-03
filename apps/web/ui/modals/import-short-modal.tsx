@@ -231,7 +231,7 @@ function ImportShortModal({
                     <SimpleTooltipContent
                       title={`Your Short.io API Key can be found in your Short.io account under "Integrations & API".`}
                       cta="Read the guide."
-                      href="https://dub.co/help/article/migrating-from-short"
+                      href="https://betterdata.co/help/article/migrating-from-short"
                     />
                   }
                 />

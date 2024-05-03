@@ -6,18 +6,18 @@ export const metaTagsSchema = z.object({
     .nullable()
     .describe("The meta title tag for the URL.")
     .openapi({
-      example: "dub.co - Link Management for Modern Marketing Teams",
+      example: "betterdata.co - Link Management for Modern Marketing Teams",
     }),
   description: z
     .string()
     .nullable()
     .describe("The meta description tag for the URL.")
     .openapi({
-      example: "dub.co is the open-source link management infrastructure ...",
+      example: "betterdata.co is the open-source link management infrastructure ...",
     }),
   image: z
     .string()
     .nullable()
     .describe("The OpenGraph image for the URL.")
-    .openapi({ example: "https://assets.dub.co/thumbnail.jpg" }),
+    .openapi({ example: "https://assets.betterdata.co/thumbnail.jpg" }),
 });

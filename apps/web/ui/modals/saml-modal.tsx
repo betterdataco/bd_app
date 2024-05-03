@@ -119,7 +119,7 @@ function SAMLModal({
             </select>
             {currentProvider ? (
               <a
-                href={`https://dub.co/help/article/${selectedProvider}-saml`}
+                href={`https://betterdata.co/help/article/${selectedProvider}-saml`}
                 target="_blank"
                 className="ml-2 mt-2 block text-sm text-gray-500 underline"
               >
@@ -127,7 +127,7 @@ function SAMLModal({
               </a>
             ) : (
               <a
-                href="https://dub.co/help/category/saml-sso"
+                href="https://betterdata.co/help/category/saml-sso"
                 target="_blank"
                 className="ml-2 mt-2 block text-sm text-gray-500 underline"
               >
@@ -148,7 +148,7 @@ function SAMLModal({
                       <SimpleTooltipContent
                         title={`Your ${currentProvider.samlModalCopy} is the URL to your SAML provider's metadata.`}
                         cta="Learn more."
-                        href={`https://dub.co/help/article/${selectedProvider}-saml`}
+                        href={`https://betterdata.co/help/article/${selectedProvider}-saml`}
                       />
                     }
                   />
@@ -203,7 +203,7 @@ function SAMLModal({
                       <SimpleTooltipContent
                         title={`Your ${currentProvider.samlModalCopy} is the URL to your SAML provider's metadata.`}
                         cta="Learn more."
-                        href={`https://dub.co/help/article/${selectedProvider}-saml#step-4-copy-the-metadata-url`}
+                        href={`https://betterdata.co/help/article/${selectedProvider}-saml#step-4-copy-the-metadata-url`}
                       />
                     }
                   />
