@@ -1,6 +1,6 @@
 export const DEFAULT_REDIRECTS = {
-  home: "https://betterdata.co",
-  betterdata: "https://betterdata.co",
+  home: "https://app.betterdata.co",
+  betterdata: "https://app.betterdata.co",
   signin: "https://app.betterdata.co/login",
   login: "https://app.betterdata.co/login",
   register: "https://app.betterdata.co/register",

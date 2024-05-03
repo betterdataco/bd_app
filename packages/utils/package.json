@@ -40,7 +40,7 @@
     "tailwind-merge": "^2.2.1"
   },
   "author": "Steven Tey <stevensteel97@gmail.com>",
-  "homepage": "https://betterdata.co",
+  "homepage": "https://dub.co",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/steven-tey/dub.git"

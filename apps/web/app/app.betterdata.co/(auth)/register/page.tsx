@@ -60,7 +60,7 @@ export default function RegisterPage() {
         >
           <BlurImage
             alt="betterdata.co Analytics"
-            src="https://assets.betterdata.co/features/analytics.png"
+            src="https://assets.dub.co/features/analytics.png"
             width={1735}
             height={990}
             className="h-full rounded-xl border border-gray-200 object-cover shadow-md"
@@ -75,7 +75,7 @@ export default function RegisterPage() {
             <BlurImage
               alt={`${logo} logo`}
               key={idx}
-              src={`https://betterdata.co/_static/clients/${logo}.svg`}
+              src={`https://dub.co/_static/clients/${logo}.svg`}
               width={520}
               height={182}
               className="h-12 grayscale transition-all hover:grayscale-0"

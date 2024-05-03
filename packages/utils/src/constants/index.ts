@@ -9,7 +9,7 @@ export * from "./misc";
 export * from "./pricing";
 export * from "./saml";
 
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "betterdata.co";
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "dub.co";
 
 export const SHORT_DOMAIN =
   process.env.NEXT_PUBLIC_APP_SHORT_DOMAIN || "tagd.sh";
@@ -56,8 +56,8 @@ export const ADMIN_HOSTNAMES = new Set([
   "admin.localhost:8888",
 ]);
 
-export const DUB_LOGO = "https://assets.betterdata.co/logo.png";
-export const DUB_THUMBNAIL = "https://assets.betterdata.co/thumbnail.jpg";
+export const DUB_LOGO = "https://assets.dub.co/logo.png";
+export const DUB_THUMBNAIL = "https://assets.dub.co/thumbnail.jpg";
 
 export const DUB_WORKSPACE_ID = "cl7pj5kq4006835rbjlt2ofka";
 export const LEGAL_WORKSPACE_ID = "clrflia0j0000vs7sqfhz9c7q";
@@ -73,7 +73,7 @@ export const DUB_DOMAINS = [
     publicStats: false,
     target: `https://${process.env.NEXT_PUBLIC_APP_DOMAIN}`,
     type: "redirect",
-    placeholder: "https://betterdata.co/help/article/what-is-dub",
+    placeholder: "https://dub.co/help/article/what-is-dub",
     clicks: 0,
     allowedHostnames: [],
     projectId: DUB_WORKSPACE_ID,
@@ -101,7 +101,7 @@ export const DUB_DOMAINS = [
           primary: false,
           archived: false,
           publicStats: false,
-          target: "https://betterdata.co/tools/spotify-link-shortener",
+          target: "https://dub.co/tools/spotify-link-shortener",
           type: "redirect",
           placeholder: "https://open.spotify.com/album/1SCyi9a5pOasikidToUY5y",
           clicks: 0,
@@ -115,7 +115,7 @@ export const DUB_DOMAINS = [
           primary: false,
           archived: false,
           publicStats: false,
-          target: "https://betterdata.co/tools/github-link-shortener",
+          target: "https://dub.co/tools/github-link-shortener",
           type: "redirect",
           placeholder: "https://github.com/dubinc/dub",
           clicks: 0,
@@ -129,7 +129,7 @@ export const DUB_DOMAINS = [
           primary: false,
           archived: false,
           publicStats: false,
-          target: "https://betterdata.co/tools/amazon-link-shortener",
+          target: "https://dub.co/tools/amazon-link-shortener",
           type: "redirect",
           placeholder: "https://www.amazon.com/dp/B0BW4SWNC8",
           clicks: 0,
@@ -148,7 +148,7 @@ export const DUB_DOMAINS = [
           primary: false,
           archived: true,
           publicStats: true,
-          target: "https://betterdata.co/tools/url-lengthener",
+          target: "https://dub.co/tools/url-lengthener",
           type: "redirect",
           placeholder: "https://d.to/long",
           clicks: 0,

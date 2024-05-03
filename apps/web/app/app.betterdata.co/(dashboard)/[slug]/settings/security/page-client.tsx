@@ -139,7 +139,7 @@ const SAMLSection = () => {
                       <TooltipContent
                         title="SAML SSO is only available on Enterprise plans. Upgrade to get started."
                         cta="Contact sales"
-                        href="https://betterdata.co/enterprise"
+                        href="https://dub.co/enterprise"
                         target="_blank"
                       />
                     ),
@@ -153,7 +153,7 @@ const SAMLSection = () => {
 
         <div className="flex items-center justify-between rounded-b-lg border-t border-gray-200 bg-gray-50 px-3 py-5 sm:px-10">
           <a
-            href="https://betterdata.co/help/category/saml-sso"
+            href="https://dub.co/help/category/saml-sso"
             target="_blank"
             className="text-sm text-gray-400 underline underline-offset-4 transition-colors hover:text-gray-700"
           >
@@ -309,7 +309,7 @@ const SCIMSection = () => {
 
         <div className="flex items-center justify-between rounded-b-lg border-t border-gray-200 bg-gray-50 px-3 py-5 sm:px-10">
           <a
-            href="https://betterdata.co/help/category/saml-sso"
+            href="https://dub.co/help/category/saml-sso"
             target="_blank"
             className="text-sm text-gray-400 underline underline-offset-4 transition-colors hover:text-gray-700"
           >
