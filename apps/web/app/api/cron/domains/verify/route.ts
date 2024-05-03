@@ -29,7 +29,7 @@ export async function GET(req: Request) {
         slug: {
           // exclude domains that belong to us
           notIn: [
-            "dub.sh",
+            "tagd.sh",
             "chatg.pt",
             "amzn.id",
             "spti.fi",

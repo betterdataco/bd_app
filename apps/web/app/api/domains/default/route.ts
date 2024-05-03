@@ -48,7 +48,7 @@ export const PUT = withWorkspace(async ({ req, workspace }) => {
       projectId: workspace.id,
     },
     data: {
-      tagdsh: defaultDomains.includes("dub.sh"),
+      tagdsh: defaultDomains.includes("tagd.sh"),
       chatgpt: defaultDomains.includes("chatg.pt"),
       sptifi: defaultDomains.includes("spti.fi"),
       gitnew: defaultDomains.includes("git.new"),

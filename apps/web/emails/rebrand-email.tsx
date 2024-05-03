@@ -26,7 +26,7 @@ export default function RebrandEmail({
     <Html>
       <Head />
       <Preview>
-        Today, we're thrilled to announce our rebrand. Dub.sh is now dub.co.
+        Today, we're thrilled to announce our rebrand. tagd.sh is now dub.co.
       </Preview>
       <Tailwind>
         <Body className="mx-auto my-auto bg-white font-sans">

@@ -12,5 +12,5 @@ export default async function OldLinksStatsPage({
   if (!workspaces || workspaces.length === 0) {
     redirect("/");
   }
-  redirect(`/${workspaces[0].slug}/analytics?domain=dub.sh&key=${params.key}`);
+  redirect(`/${workspaces[0].slug}/analytics?domain=tagd.sh&key=${params.key}`);
 }

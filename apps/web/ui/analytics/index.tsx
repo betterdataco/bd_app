@@ -62,7 +62,7 @@ export default function Analytics({
   const tagId = searchParams?.get("tagId") ?? undefined;
 
   const { basePath, domain, baseApiPath } = useMemo(() => {
-    // Workspace analytics page, e.g. dub.co/dub/analytics?domain=dub.sh&key=github
+    // Workspace analytics page, e.g. dub.co/dub/analytics?domain=tagd.sh&key=github
     if (admin) {
       return {
         basePath: `/analytics`,
@@ -118,7 +118,7 @@ export default function Analytics({
         basePath, // basePath for the page (e.g. /stats/[key], /[slug]/analytics)
         baseApiPath, // baseApiPath for the API (e.g. /api/analytics)
         queryString,
-        domain: domain || undefined, // domain for the link (e.g. dub.sh, stey.me, etc.)
+        domain: domain || undefined, // domain for the link (e.g. tagd.sh, stey.me, etc.)
         key: key ? decodeURIComponent(key) : undefined, // link key (e.g. github, weathergpt, etc.)
         url: staticUrl, // url for the link (only for public stats pages)
         interval, // time interval (e.g. 24h, 7d, 30d, etc.)

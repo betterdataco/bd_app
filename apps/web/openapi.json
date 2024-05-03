@@ -89,7 +89,7 @@
                 "properties": {
                   "domain": {
                     "type": "string",
-                    "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                    "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `tagd.sh` if the workspace has no domains)."
                   },
                   "key": {
                     "type": "string",
@@ -1562,7 +1562,7 @@
                 "properties": {
                   "domain": {
                     "type": "string",
-                    "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                    "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `tagd.sh` if the workspace has no domains)."
                   },
                   "key": {
                     "type": "string",
@@ -2629,7 +2629,7 @@
                   "properties": {
                     "domain": {
                       "type": "string",
-                      "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+                      "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `tagd.sh` if the workspace has no domains)."
                     },
                     "key": {
                       "type": "string",
@@ -10019,7 +10019,7 @@
           },
           "domain": {
             "type": "string",
-            "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `dub.sh` if the workspace has no domains)."
+            "description": "The domain of the short link. If not provided, the primary domain for the workspace will be used (or `tagd.sh` if the workspace has no domains)."
           },
           "key": {
             "type": "string",
@@ -11122,12 +11122,12 @@
           "shortLink": {
             "type": "string",
             "format": "uri",
-            "description": "The full URL of the short link, including the https protocol (e.g. `https://dub.sh/try`)."
+            "description": "The full URL of the short link, including the https protocol (e.g. `https://tagd.sh/try`)."
           },
           "qrCode": {
             "type": "string",
             "format": "uri",
-            "description": "The full URL of the QR code for the short link (e.g. `https://api.betterdata.co/qr?url=https://dub.sh/try`)."
+            "description": "The full URL of the QR code for the short link (e.g. `https://api.betterdata.co/qr?url=https://tagd.sh/try`)."
           },
           "utm_source": {
             "type": "string",

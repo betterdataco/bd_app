@@ -1,4 +1,4 @@
 export const link = {
-  domain: "dub.sh",
+  domain: "tagd.sh",
   url: "https://github.com/dubinc",
 };

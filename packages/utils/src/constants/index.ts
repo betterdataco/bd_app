@@ -12,7 +12,7 @@ export * from "./saml";
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "dub.co";
 
 export const SHORT_DOMAIN =
-  process.env.NEXT_PUBLIC_APP_SHORT_DOMAIN || "dub.sh";
+  process.env.NEXT_PUBLIC_APP_SHORT_DOMAIN || "tagd.sh";
 
 export const HOME_DOMAIN = `https://${process.env.NEXT_PUBLIC_APP_DOMAIN}`;
 
@@ -163,7 +163,7 @@ export const DUB_DOMAINS_ARRAY = DUB_DOMAINS.map((domain) => domain.slug);
 export const DUB_DEMO_LINKS = [
   {
     id: "clqo10sum0006js08vutzfxt3",
-    domain: "dub.sh",
+    domain: "tagd.sh",
     key: "try",
   },
   {
