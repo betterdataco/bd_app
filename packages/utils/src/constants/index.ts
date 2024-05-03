@@ -87,7 +87,7 @@ export const DUB_DOMAINS = [
           primary: false,
           archived: false,
           publicStats: false,
-          target: "https://betterdata.co/tools/chatgpt-link-shortener",
+          target: "https://dub.co/tools/chatgpt-link-shortener",
           type: "redirect",
           placeholder: "https://chat.openai.com/g/g-UGjKKONEe-domainsgpt",
           clicks: 0,

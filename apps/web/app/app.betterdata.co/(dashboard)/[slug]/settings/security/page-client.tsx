@@ -295,7 +295,7 @@ const SCIMSection = () => {
                       <TooltipContent
                         title="SCIM Directory Sync is only available on Enterprise plans. Upgrade to get started."
                         cta="Contact sales"
-                        href="https://betterdata.co/enterprise"
+                        href="https://dub.co/enterprise"
                         target="_blank"
                       />
                     ),

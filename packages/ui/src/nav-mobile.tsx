@@ -23,7 +23,7 @@ export function NavMobile() {
   }, [open]);
 
   const { data: session } = useSWR(
-    domain === "betterdata.co" && "/api/auth/session",
+    domain === "dub.co" && "/api/auth/session",
     fetcher,
     {
       dedupingInterval: 60000,
@@ -71,9 +71,9 @@ export function NavMobile() {
                   <Link
                     key={slug}
                     href={
-                      domain === "betterdata.co"
+                      domain === "app.betterdata.co"
                         ? `/${slug}`
-                        : `https://betterdata.co/${slug}`
+                        : `https://app.betterdata.co/${slug}`
                     }
                     onClick={() => setOpen(false)}
                     className="flex w-full space-x-2"
@@ -89,7 +89,7 @@ export function NavMobile() {
             <li key={slug} className="py-3">
               <Link
                 href={
-                  domain === "betterdata.co" ? `/${slug}` : `https://betterdata.co/${slug}`
+                  domain === "app.betterdata.co" ? `/${slug}` : `https://app.betterdata.co/${slug}`
                 }
                 onClick={() => setOpen(false)}
                 className="flex w-full font-semibold capitalize"

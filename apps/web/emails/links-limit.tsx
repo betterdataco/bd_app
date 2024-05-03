@@ -64,7 +64,7 @@ export default function LinksLimitAlert({
             <Text className="text-sm leading-6 text-black">
               Your betterdata.co workspace,{" "}
               <Link
-                href={`https://betterdata.co/${slug}`}
+                href={`https://app.betterdata.co/${slug}`}
                 className="text-black underline"
               >
                 <strong>{name}</strong>
